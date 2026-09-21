@@ -20,10 +20,17 @@
     --accent: #14b8a6;
     --accent-hover: #0d9488;
     --accent-light: rgba(20, 184, 166, 0.1);
+    --green: #22c55e;
+    --green-dark: #16a34a;
+    --green-light: rgba(34, 197, 94, 0.15);
+    --green-btn: #15803d;
+    --green-btn-hover: #166534;
     --danger: #ef4444;
     --danger-hover: #dc2626;
     --success: #10b981;
     --warning: #f59e0b;
+    --trade-bg: #0d1a14;
+    --trade-border: #1a3a2a;
   }
 
   body {
@@ -133,6 +140,23 @@
   }
 
   .btn-ghost:hover { color: var(--text-primary); background: var(--bg-tertiary); }
+
+  .btn-green {
+    background: var(--green-btn);
+    border-color: var(--green-dark);
+    color: #fff;
+    font-weight: 600;
+  }
+
+  .btn-green:hover { background: var(--green-btn-hover); }
+
+  .btn-green-outline {
+    background: transparent;
+    border-color: var(--green-dark);
+    color: var(--green);
+  }
+
+  .btn-green-outline:hover { background: var(--green-light); }
 
   /* Main Layout */
   .main-layout {
@@ -547,7 +571,7 @@
 
   /* Right Panel */
   .sidebar-right {
-    background: var(--bg-secondary);
+    background: var(--bg-primary);
     border-left: 1px solid var(--border-color);
     display: flex;
     flex-direction: column;
@@ -559,37 +583,332 @@
 
   .launch-tabs {
     display: flex;
+    padding: 10px;
+    gap: 8px;
     border-bottom: 1px solid var(--border-color);
+    background: var(--bg-secondary);
   }
 
   .launch-tab {
     flex: 1;
-    padding: 12px;
+    padding: 10px 14px;
     text-align: center;
     font-size: 13px;
     font-weight: 600;
     cursor: pointer;
-    background: transparent;
-    border: none;
+    border-radius: 8px;
+    border: 1px solid var(--border-color);
+    background: var(--bg-tertiary);
     color: var(--text-secondary);
     display: flex;
     align-items: center;
     justify-content: center;
     gap: 6px;
+    transition: all 0.15s;
   }
 
-  .launch-tab.active {
-    color: var(--accent);
-    border-bottom: 2px solid var(--accent);
+  .launch-tab.active-trade {
+    background: rgba(34, 197, 94, 0.15);
+    border-color: var(--green-dark);
+    color: var(--green);
   }
 
-  .launch-tab:hover:not(.active) { color: var(--text-primary); }
+  .launch-tab.active-launch {
+    background: var(--accent);
+    border-color: var(--accent);
+    color: #000;
+  }
+
+  .launch-tab:hover:not(.active-trade):not(.active-launch) {
+    color: var(--text-primary);
+    border-color: var(--border-light);
+  }
 
   .launch-content {
     padding: 16px;
     flex: 1;
   }
 
+  .panel-section {
+    display: none;
+  }
+
+  .panel-section.active {
+    display: block;
+  }
+
+  /* ===== TRADE PANEL STYLES ===== */
+  .trade-panel {
+    background: var(--bg-primary);
+  }
+
+  .trade-section-title {
+    font-size: 17px;
+    font-weight: 700;
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .wallets-selected-badge {
+    font-size: 11px;
+    padding: 4px 10px;
+    border-radius: 12px;
+    background: rgba(34, 197, 94, 0.15);
+    color: var(--green);
+    border: 1px solid var(--green-dark);
+    font-weight: 600;
+  }
+
+  .buy-sell-toggle {
+    display: flex;
+    background: var(--bg-tertiary);
+    border-radius: 8px;
+    overflow: hidden;
+    border: 1px solid var(--border-color);
+    margin-bottom: 14px;
+  }
+
+  .buy-sell-btn {
+    flex: 1;
+    padding: 10px;
+    text-align: center;
+    font-size: 13px;
+    font-weight: 700;
+    cursor: pointer;
+    border: none;
+    background: transparent;
+    color: var(--text-secondary);
+    transition: all 0.15s;
+  }
+
+  .buy-sell-btn.active-buy {
+    background: var(--green-btn);
+    color: #fff;
+  }
+
+  .buy-sell-btn.active-sell {
+    background: var(--danger);
+    color: #fff;
+  }
+
+  .buy-sell-btn:hover:not(.active-buy):not(.active-sell) {
+    color: var(--text-primary);
+  }
+
+  .trade-grid-2 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin-bottom: 10px;
+  }
+
+  .trade-card {
+    background: var(--bg-tertiary);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    padding: 12px;
+  }
+
+  .trade-card-label {
+    font-size: 11px;
+    color: var(--text-secondary);
+    margin-bottom: 4px;
+  }
+
+  .trade-card-value {
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--text-primary);
+  }
+
+  .trade-card-value.green { color: var(--green); }
+
+  .tx-delay-row {
+    display: grid;
+    grid-template-columns: 44px 1fr 44px;
+    gap: 8px;
+    margin-bottom: 10px;
+    align-items: center;
+  }
+
+  .tx-delay-btn {
+    width: 44px;
+    height: 44px;
+    border-radius: 8px;
+    background: var(--bg-tertiary);
+    border: 1px solid var(--border-color);
+    color: var(--text-primary);
+    font-size: 18px;
+    font-weight: 700;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.15s;
+  }
+
+  .tx-delay-btn:hover {
+    background: var(--bg-hover);
+    border-color: var(--border-light);
+  }
+
+  .tx-delay-center {
+    height: 44px;
+    border-radius: 8px;
+    background: var(--bg-tertiary);
+    border: 1px solid var(--border-color);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 13px;
+    color: var(--text-secondary);
+    font-weight: 500;
+  }
+
+  .progress-bar-container {
+    height: 4px;
+    background: var(--bg-tertiary);
+    border-radius: 2px;
+    margin: 14px 0;
+    overflow: hidden;
+  }
+
+  .progress-bar-fill {
+    height: 100%;
+    background: var(--green);
+    border-radius: 2px;
+    width: 0%;
+    transition: width 0.3s;
+  }
+
+  .drag-handle {
+    display: flex;
+    justify-content: center;
+    padding: 6px 0;
+    cursor: grab;
+  }
+
+  .drag-handle-dots {
+    display: grid;
+    grid-template-columns: repeat(3, 4px);
+    gap: 3px;
+  }
+
+  .drag-handle-dots span {
+    width: 4px;
+    height: 4px;
+    background: var(--text-muted);
+    border-radius: 1px;
+  }
+
+  .dump-btn {
+    width: 100%;
+    padding: 12px;
+    background: rgba(34, 197, 94, 0.15);
+    border: 1px solid var(--green-dark);
+    border-radius: 8px;
+    color: var(--green);
+    font-size: 14px;
+    font-weight: 700;
+    cursor: pointer;
+    margin-top: 12px;
+    transition: all 0.15s;
+  }
+
+  .dump-btn:hover {
+    background: rgba(34, 197, 94, 0.25);
+  }
+
+  /* Trades Log */
+  .trades-log-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 12px;
+  }
+
+  .trades-log-title {
+    font-size: 17px;
+    font-weight: 700;
+  }
+
+  .checkbox-label {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 12px;
+    color: var(--text-secondary);
+    cursor: pointer;
+  }
+
+  .checkbox-custom {
+    width: 18px;
+    height: 18px;
+    border-radius: 4px;
+    background: var(--green);
+    border: 1px solid var(--green-dark);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 11px;
+    color: #fff;
+    font-weight: 700;
+  }
+
+  .log-tabs {
+    display: flex;
+    background: var(--bg-tertiary);
+    border-radius: 8px;
+    overflow: hidden;
+    border: 1px solid var(--border-color);
+    margin-bottom: 14px;
+  }
+
+  .log-tab {
+    flex: 1;
+    padding: 8px;
+    text-align: center;
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+    border: none;
+    background: transparent;
+    color: var(--text-secondary);
+    transition: all 0.15s;
+  }
+
+  .log-tab.active {
+    background: var(--bg-hover);
+    color: var(--text-primary);
+  }
+
+  .log-table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+
+  .log-table th {
+    text-align: left;
+    padding: 8px 6px;
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--text-secondary);
+    border-bottom: 1px solid var(--border-color);
+    cursor: pointer;
+  }
+
+  .log-table th:hover { color: var(--text-primary); }
+
+  .log-empty {
+    text-align: center;
+    padding: 24px 12px;
+    font-size: 12px;
+    color: var(--text-muted);
+  }
+
+  /* ===== LAUNCH PANEL STYLES ===== */
   .step-indicator {
     display: flex;
     align-items: center;
@@ -890,7 +1209,6 @@
     background: var(--border-color);
   }
 
-  /* Checkbox */
   .checkbox {
     width: 16px;
     height: 16px;
@@ -908,17 +1226,10 @@
     border-color: var(--accent);
   }
 
-  /* Scrollbar global */
   ::-webkit-scrollbar { width: 6px; height: 6px; }
   ::-webkit-scrollbar-track { background: transparent; }
   ::-webkit-scrollbar-thumb { background: var(--border-color); border-radius: 3px; }
   ::-webkit-scrollbar-thumb:hover { background: var(--border-light); }
-
-  /* Utility */
-  .flex { display: flex; }
-  .items-center { align-items: center; }
-  .gap-2 { gap: 8px; }
-  .text-muted { color: var(--text-muted); }
 </style>
 </head>
 <body>
@@ -935,7 +1246,7 @@
   <div class="top-bar-right">
     <button class="btn btn-ghost">View on GMGN ↗</button>
     <button class="btn btn-ghost">Minimize Chart ↑</button>
-    <button class="btn btn-ghost"></button>
+    <button class="btn btn-ghost">↕</button>
   </div>
 </div>
 
@@ -956,7 +1267,7 @@
       <div class="balance-row">
         <div>
           <div class="balance-label">SOL Balance</div>
-          <div class="balance-value">0.49 <span class="unit">SOL</span></div>
+          <div class="balance-value">1.35 <span class="unit">SOL</span></div>
         </div>
         <button class="icon-btn">≡</button>
       </div>
@@ -965,7 +1276,7 @@
     <div class="stats-row">
       <div class="stat-card">
         <div class="stat-label">Tokens</div>
-        <div class="stat-value">0 <span class="stat-icon"></span></div>
+        <div class="stat-value">0</div>
       </div>
       <div class="stat-card">
         <div class="stat-label">Wallets</div>
@@ -1006,8 +1317,8 @@
         <button class="tf-btn">1h</button>
         <button class="tf-btn">D</button>
         <div class="tf-divider"></div>
-        <button class="tf-btn">📊</button>
         <button class="tf-btn"></button>
+        <button class="tf-btn">📈</button>
         <button class="tf-btn">📉</button>
       </div>
 
@@ -1034,11 +1345,11 @@
           <div class="wallets-header-title">Wallets</div>
           <button class="btn btn-outline">+ New</button>
           <button class="btn">💧 Drain SOL</button>
-          <button class="btn"> Migrate</button>
+          <button class="btn">⇄ Migrate</button>
           <button class="btn">✂ Split</button>
         </div>
         <div class="wallets-header-right">
-          <button class="btn btn-danger">Delete </button>
+          <button class="btn btn-danger">Delete 🗑</button>
           <button class="btn">Save Selected PKs 🔑</button>
         </div>
       </div>
@@ -1050,10 +1361,10 @@
               <th style="width:30px;"><div class="checkbox"></div></th>
               <th>Wallet ↑</th>
               <th>SOL Balance ⇅</th>
-              <th>Tokens </th>
-              <th>% Of Supply </th>
+              <th>Tokens ⇅</th>
+              <th>% Of Supply ⇅</th>
               <th>Profit</th>
-              <th>TX Amount </th>
+              <th>TX Amount ⇅</th>
             </tr>
           </thead>
         </table>
@@ -1069,76 +1380,197 @@
 
   </main>
 
-  <!-- Right Panel (Launch) -->
+  <!-- Right Panel -->
   <aside class="sidebar-right">
+    <!-- Tabs -->
     <div class="launch-tabs">
-      <button class="launch-tab"> Trade</button>
-      <button class="launch-tab active">🚀 Launch</button>
+      <button class="launch-tab active-trade" id="tabTrade" onclick="switchPanel('trade')">
+        📈 Trade
+      </button>
+      <button class="launch-tab" id="tabLaunch" onclick="switchPanel('launch')">
+        🚀 Launch
+      </button>
     </div>
 
-    <div class="launch-content">
-      <div class="step-indicator">
-        <div class="step active">
-          <div class="step-num">1</div>
-          <span>Token</span>
-        </div>
-        <span class="step-arrow">›</span>
-        <div class="step">
-          <div class="step-num">2</div>
-          <span>Socials</span>
-        </div>
-        <span class="step-arrow">›</span>
-        <div class="step">
-          <div class="step-num">3</div>
-          <span>Wallets</span>
-        </div>
-      </div>
+    <!-- TRADE PANEL -->
+    <div class="panel-section active trade-panel" id="panelTrade">
+      <div class="launch-content">
 
-      <div class="form-group">
-        <div class="form-label">Copy CA metadata</div>
-        <div style="display:flex;gap:8px;">
-          <input type="text" class="form-input" placeholder="Paste a token CA to autofill" style="flex:1;">
-          <button class="btn">📋 Copy</button>
+        <!-- Bundle Buy / Sell -->
+        <div class="trade-section-title">
+          Bundle Buy / Sell
+          <span class="wallets-selected-badge">0/0 Wallets Selected</span>
         </div>
-      </div>
 
-      <div class="form-group">
-        <div class="form-label">Launching on: <span class="required">*</span></div>
-        <select class="select-input">
-          <option> PumpFun</option>
-          <option>Raydium</option>
-          <option>Meteora</option>
-        </select>
-      </div>
-
-      <div class="form-row">
-        <div class="form-group">
-          <div class="form-label">Name <span class="required">*</span></div>
-          <input type="text" class="form-input" placeholder="Name of your token">
+        <div class="buy-sell-toggle">
+          <button class="buy-sell-btn active-buy" id="btnBuy" onclick="switchBuySell('buy')">Bundle Buy</button>
+          <button class="buy-sell-btn" id="btnSell" onclick="switchBuySell('sell')">Bundle Sell</button>
         </div>
-        <div class="form-group">
-          <div class="form-label">Symbol <span class="required">*</span></div>
-          <input type="text" class="form-input" placeholder='E.g. "SOL"'>
+
+        <div class="trade-grid-2">
+          <div class="trade-card">
+            <div class="trade-card-label">TX count</div>
+            <div class="trade-card-value" id="txCount">0</div>
+          </div>
+          <div class="trade-card">
+            <div class="trade-card-label">Total buy amount</div>
+            <div class="trade-card-value" id="totalBuy">0.0000 SOL</div>
+          </div>
         </div>
-      </div>
 
-      <div class="form-group">
-        <div class="form-label">Description</div>
-        <textarea class="form-textarea" placeholder='E.g. "First community token on Solana"'></textarea>
-        <div class="char-counter">0/500</div>
-      </div>
-
-      <div class="form-group">
-        <div class="form-label">Image <span class="required">*</span></div>
-        <div class="upload-area">
-          <div class="upload-icon"></div>
-          <div class="upload-text">Upload File</div>
-          <div class="upload-hint">PNG, JPG, WEBP or GIF · max 10 MB</div>
+        <div class="tx-delay-row">
+          <button class="tx-delay-btn" onclick="adjustDelay(-1)">−</button>
+          <div class="tx-delay-center">TX Delay (Blocks)</div>
+          <button class="tx-delay-btn" onclick="adjustDelay(1)">+</button>
         </div>
-      </div>
 
-      <button class="next-btn">Next ›</button>
+        <div class="trade-grid-2">
+          <div class="trade-card">
+            <div class="trade-card-label">Estimated Interval</div>
+            <div class="trade-card-value" id="estInterval">0.0s <span style="font-size:12px;color:var(--text-secondary);font-weight:500;">(between txs)</span></div>
+          </div>
+          <div class="trade-card">
+            <div class="trade-card-label">Estimated Time</div>
+            <div class="trade-card-value" id="estTime">0.0s <span style="font-size:12px;color:var(--text-secondary);font-weight:500;">(total)</span></div>
+          </div>
+        </div>
+
+        <div class="progress-bar-container">
+          <div class="progress-bar-fill" id="progressFill"></div>
+        </div>
+
+        <div class="drag-handle">
+          <div class="drag-handle-dots">
+            <span></span><span></span><span></span>
+            <span></span><span></span><span></span>
+          </div>
+        </div>
+
+        <!-- Dump It -->
+        <div class="trade-section-title" style="margin-top:8px;">Dump It</div>
+
+        <div class="trade-grid-2">
+          <div class="trade-card">
+            <div class="trade-card-label">Tokens To Sell</div>
+            <div class="trade-card-value" id="tokensToSell">0</div>
+          </div>
+          <div class="trade-card">
+            <div class="trade-card-label">SOL Amount to Receive</div>
+            <div class="trade-card-value" id="solToReceive">0.0000 SOL</div>
+          </div>
+        </div>
+
+        <div class="trade-card" style="margin-bottom:0;">
+          <div class="trade-card-label">Play Profit</div>
+          <div class="trade-card-value green" id="playProfit">+0.0000 SOL</div>
+        </div>
+
+        <button class="dump-btn" onclick="handleDump()">Dump It</button>
+
+        <div class="drag-handle" style="margin-top:16px;">
+          <div class="drag-handle-dots">
+            <span></span><span></span><span></span>
+            <span></span><span></span><span></span>
+          </div>
+        </div>
+
+        <!-- Trades Log -->
+        <div class="trades-log-header" style="margin-top:8px;">
+          <div class="trades-log-title">Trades Log</div>
+          <label class="checkbox-label">
+            Current Mint Only
+            <div class="checkbox-custom">✓</div>
+          </label>
+        </div>
+
+        <div class="log-tabs">
+          <button class="log-tab active" id="logMain" onclick="switchLogTab('main')">Main</button>
+          <button class="log-tab" id="logMM" onclick="switchLogTab('mm')">Market Maker</button>
+        </div>
+
+        <table class="log-table">
+          <thead>
+            <tr>
+              <th>Wallet</th>
+              <th>SOL ⇅</th>
+              <th>Mint</th>
+              <th>Time ⇅</th>
+            </tr>
+          </thead>
+        </table>
+
+        <div class="log-empty">No trades yet.</div>
+
+      </div>
     </div>
+
+    <!-- LAUNCH PANEL -->
+    <div class="panel-section" id="panelLaunch">
+      <div class="launch-content">
+        <div class="step-indicator">
+          <div class="step active">
+            <div class="step-num">1</div>
+            <span>Token</span>
+          </div>
+          <span class="step-arrow">›</span>
+          <div class="step">
+            <div class="step-num">2</div>
+            <span>Socials</span>
+          </div>
+          <span class="step-arrow">›</span>
+          <div class="step">
+            <div class="step-num">3</div>
+            <span>Wallets</span>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <div class="form-label">Copy CA metadata</div>
+          <div style="display:flex;gap:8px;">
+            <input type="text" class="form-input" placeholder="Paste a token CA to autofill" style="flex:1;">
+            <button class="btn">📋 Copy</button>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <div class="form-label">Launching on: <span class="required">*</span></div>
+          <select class="select-input">
+            <option>🟢 PumpFun</option>
+            <option>Raydium</option>
+            <option>Meteora</option>
+          </select>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <div class="form-label">Name <span class="required">*</span></div>
+            <input type="text" class="form-input" placeholder="Name of your token">
+          </div>
+          <div class="form-group">
+            <div class="form-label">Symbol <span class="required">*</span></div>
+            <input type="text" class="form-input" placeholder='E.g. "SOL"'>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <div class="form-label">Description</div>
+          <textarea class="form-textarea" placeholder='E.g. "First community token on Solana"'></textarea>
+          <div class="char-counter">0/500</div>
+        </div>
+
+        <div class="form-group">
+          <div class="form-label">Image <span class="required">*</span></div>
+          <div class="upload-area">
+            <div class="upload-icon">⬆</div>
+            <div class="upload-text">Upload File</div>
+            <div class="upload-hint">PNG, JPG, WEBP or GIF · max 10 MB</div>
+          </div>
+        </div>
+
+        <button class="next-btn">Next ›</button>
+      </div>
+    </div>
+
   </aside>
 
 </div>
@@ -1148,8 +1580,8 @@
   <div class="bottom-bar-left">
     <div class="wallet-status">
       <div class="status-dot"></div>
-      <span style="color:var(--text-secondary);">Wallet not connected</span>
-      <button class="btn btn-accent" style="padding:4px 12px;font-size:11px;">Connect </button>
+      <span style="color:var(--text-secondary);" id="walletText">Wallet not connected</span>
+      <button class="btn btn-accent" style="padding:4px 12px;font-size:11px;" id="connectBtn" onclick="connectWallet()">Connect</button>
     </div>
 
     <div class="divider-v"></div>
@@ -1184,12 +1616,96 @@
   </div>
 
   <div class="bottom-bar-right">
-    <button class="btn btn-ghost" style="font-size:11px;"> Tutorial</button>
+    <button class="btn btn-ghost" style="font-size:11px;">📖 Tutorial</button>
   </div>
 </div>
 
 <script>
-  // Timeframe buttons
+  // ===== Panel Switching (Trade / Launch) =====
+  function switchPanel(panel) {
+    const tradeTab = document.getElementById('tabTrade');
+    const launchTab = document.getElementById('tabLaunch');
+    const tradePanel = document.getElementById('panelTrade');
+    const launchPanel = document.getElementById('panelLaunch');
+
+    if (panel === 'trade') {
+      tradeTab.classList.add('active-trade');
+      tradeTab.classList.remove('active-launch');
+      launchTab.classList.remove('active-trade', 'active-launch');
+      tradePanel.classList.add('active');
+      launchPanel.classList.remove('active');
+    } else {
+      launchTab.classList.add('active-launch');
+      launchTab.classList.remove('active-trade');
+      tradeTab.classList.remove('active-trade', 'active-launch');
+      launchPanel.classList.add('active');
+      tradePanel.classList.remove('active');
+    }
+  }
+
+  // ===== Buy / Sell Toggle =====
+  function switchBuySell(mode) {
+    const btnBuy = document.getElementById('btnBuy');
+    const btnSell = document.getElementById('btnSell');
+    if (mode === 'buy') {
+      btnBuy.classList.add('active-buy');
+      btnBuy.classList.remove('active-sell');
+      btnSell.classList.remove('active-buy', 'active-sell');
+    } else {
+      btnSell.classList.add('active-sell');
+      btnSell.classList.remove('active-buy');
+      btnBuy.classList.remove('active-buy', 'active-sell');
+    }
+  }
+
+  // ===== TX Delay =====
+  let txDelay = 0;
+  function adjustDelay(delta) {
+    txDelay = Math.max(0, txDelay + delta);
+    const interval = txDelay * 0.4;
+    const total = interval * 1;
+    document.getElementById('estInterval').innerHTML = `${interval.toFixed(1)}s <span style="font-size:12px;color:var(--text-secondary);font-weight:500;">(between txs)</span>`;
+    document.getElementById('estTime').innerHTML = `${total.toFixed(1)}s <span style="font-size:12px;color:var(--text-secondary);font-weight:500;">(total)</span>`;
+    document.getElementById('progressFill').style.width = `${Math.min(txDelay * 10, 100)}%`;
+  }
+
+  // ===== Log Tab =====
+  function switchLogTab(tab) {
+    const main = document.getElementById('logMain');
+    const mm = document.getElementById('logMM');
+    if (tab === 'main') {
+      main.classList.add('active');
+      mm.classList.remove('active');
+    } else {
+      mm.classList.add('active');
+      main.classList.remove('active');
+    }
+  }
+
+  // ===== Dump It =====
+  function handleDump() {
+    alert('Dump It action triggered!');
+  }
+
+  // ===== Connect Wallet =====
+  function connectWallet() {
+    const dot = document.querySelector('.status-dot');
+    const text = document.getElementById('walletText');
+    const btn = document.getElementById('connectBtn');
+    if (dot.classList.contains('connected')) {
+      dot.classList.remove('connected');
+      text.textContent = 'Wallet not connected';
+      text.style.color = 'var(--text-secondary)';
+      btn.textContent = 'Connect';
+    } else {
+      dot.classList.add('connected');
+      text.textContent = 'Wallet connected';
+      text.style.color = 'var(--success)';
+      btn.textContent = 'Disconnect';
+    }
+  }
+
+  // ===== Timeframe buttons =====
   document.querySelectorAll('.tf-btn').forEach(btn => {
     btn.addEventListener('click', () => {
       document.querySelectorAll('.tf-btn').forEach(b => b.classList.remove('active'));
@@ -1197,15 +1713,7 @@
     });
   });
 
-  // Launch tabs
-  document.querySelectorAll('.launch-tab').forEach(tab => {
-    tab.addEventListener('click', () => {
-      document.querySelectorAll('.launch-tab').forEach(t => t.classList.remove('active'));
-      tab.classList.add('active');
-    });
-  });
-
-  // Speed toggle
+  // ===== Speed toggle =====
   document.querySelectorAll('.speed-btn').forEach(btn => {
     btn.addEventListener('click', () => {
       document.querySelectorAll('.speed-btn').forEach(b => b.classList.remove('active'));
@@ -1213,33 +1721,25 @@
     });
   });
 
-  // Description character counter
+  // ===== Description character counter =====
   const textarea = document.querySelector('.form-textarea');
   const counter = document.querySelector('.char-counter');
-  textarea.addEventListener('input', () => {
-    const len = textarea.value.length;
-    counter.textContent = `${len}/500`;
-    counter.style.color = len > 450 ? 'var(--danger)' : 'var(--text-muted)';
-  });
+  if (textarea && counter) {
+    textarea.addEventListener('input', () => {
+      const len = textarea.value.length;
+      counter.textContent = `${len}/500`;
+      counter.style.color = len > 450 ? 'var(--danger)' : 'var(--text-muted)';
+    });
+  }
 
-  // Upload area click
+  // ===== Upload area =====
   document.querySelector('.upload-area').addEventListener('click', () => {
     alert('File upload dialog would open here.');
   });
 
-  // Checkboxes
+  // ===== Checkboxes =====
   document.querySelectorAll('.checkbox').forEach(cb => {
     cb.addEventListener('click', () => cb.classList.toggle('checked'));
-  });
-
-  // Connect wallet button
-  document.querySelector('.bottom-bar-left .btn-accent').addEventListener('click', function() {
-    const dot = document.querySelector('.status-dot');
-    const text = this.previousElementSibling;
-    dot.classList.add('connected');
-    text.textContent = 'Wallet connected';
-    text.style.color = 'var(--success)';
-    this.textContent = 'Disconnect';
   });
 </script>
 
