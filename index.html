@@ -180,6 +180,116 @@
     border-color: var(--text-secondary);
   }
 
+  /* ===== COUNTDOWN TIMER STYLES ===== */
+  .countdown-container {
+    margin-bottom: 24px;
+    padding: 20px;
+    background: linear-gradient(135deg, rgba(20, 184, 166, 0.08) 0%, rgba(14, 165, 233, 0.08) 100%);
+    border: 2px solid var(--accent);
+    border-radius: 12px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .countdown-container::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: linear-gradient(45deg, transparent, rgba(20, 184, 166, 0.1), transparent);
+    animation: rotate 10s linear infinite;
+  }
+
+  @keyframes rotate {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+
+  .countdown-title {
+    text-align: center;
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--accent);
+    margin-bottom: 16px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    position: relative;
+    z-index: 1;
+  }
+
+  .countdown-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 12px;
+    position: relative;
+    z-index: 1;
+  }
+
+  .countdown-item {
+    background: var(--bg-tertiary);
+    border: 1px solid var(--border-light);
+    border-radius: 8px;
+    padding: 16px 8px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .countdown-item::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, var(--accent), #0ea5e9);
+  }
+
+  .countdown-value {
+    font-size: 32px;
+    font-weight: 700;
+    color: var(--text-primary);
+    line-height: 1;
+    margin-bottom: 8px;
+    font-variant-numeric: tabular-nums;
+    transition: all 0.3s ease;
+  }
+
+  .countdown-value.changing {
+    animation: flip 0.3s ease;
+  }
+
+  @keyframes flip {
+    0% { transform: rotateX(0deg); }
+    50% { transform: rotateX(90deg); opacity: 0.5; }
+    100% { transform: rotateX(0deg); }
+  }
+
+  .countdown-label {
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--text-secondary);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+
+  .countdown-separator {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    font-weight: 700;
+    color: var(--accent);
+    animation: blink 1s infinite;
+  }
+
+  @keyframes blink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.3; }
+  }
+
   .btn {
     padding: 6px 14px;
     border-radius: 6px;
@@ -1424,6 +1534,29 @@
 
       <div class="chart-area">
         <div class="chart-placeholder">
+          <!-- Countdown Timer -->
+          <div class="countdown-container">
+            <div class="countdown-title">⏰ Queue System Opens In</div>
+            <div class="countdown-grid">
+              <div class="countdown-item">
+                <div class="countdown-value" id="countdown-days">43</div>
+                <div class="countdown-label">Days</div>
+              </div>
+              <div class="countdown-item">
+                <div class="countdown-value" id="countdown-hours">21</div>
+                <div class="countdown-label">Hours</div>
+              </div>
+              <div class="countdown-item">
+                <div class="countdown-value" id="countdown-minutes">25</div>
+                <div class="countdown-label">Minutes</div>
+              </div>
+              <div class="countdown-item">
+                <div class="countdown-value" id="countdown-seconds">10</div>
+                <div class="countdown-label">Seconds</div>
+              </div>
+            </div>
+          </div>
+
           <div class="chart-icon">📈</div>
           <h3>No token selected</h3>
           <p>Paste a token address in Token Details to load its live chart.</p>
@@ -1721,6 +1854,76 @@
 </div>
 
 <script>
+  // ===== Countdown Timer =====
+  let countdownDays = 43;
+  let countdownHours = 21;
+  let countdownMinutes = 25;
+  let countdownSeconds = 10;
+
+  function updateCountdown() {
+    const daysEl = document.getElementById('countdown-days');
+    const hoursEl = document.getElementById('countdown-hours');
+    const minutesEl = document.getElementById('countdown-minutes');
+    const secondsEl = document.getElementById('countdown-seconds');
+
+    // Decrease seconds
+    countdownSeconds--;
+
+    // Handle seconds underflow
+    if (countdownSeconds < 0) {
+      countdownSeconds = 59;
+      countdownMinutes--;
+
+      // Handle minutes underflow
+      if (countdownMinutes < 0) {
+        countdownMinutes = 59;
+        countdownHours--;
+
+        // Handle hours underflow
+        if (countdownHours < 0) {
+          countdownHours = 23;
+          countdownDays--;
+
+          // Handle countdown complete
+          if (countdownDays < 0) {
+            countdownDays = 0;
+            countdownHours = 0;
+            countdownMinutes = 0;
+            countdownSeconds = 0;
+            clearInterval(countdownInterval);
+            document.querySelector('.countdown-title').textContent = '🎉 Queue System Now Open!';
+          }
+        }
+      }
+    }
+
+    // Update display with animation
+    if (daysEl.textContent !== String(countdownDays)) {
+      daysEl.classList.add('changing');
+      setTimeout(() => daysEl.classList.remove('changing'), 300);
+    }
+    if (hoursEl.textContent !== String(countdownHours)) {
+      hoursEl.classList.add('changing');
+      setTimeout(() => hoursEl.classList.remove('changing'), 300);
+    }
+    if (minutesEl.textContent !== String(countdownMinutes)) {
+      minutesEl.classList.add('changing');
+      setTimeout(() => minutesEl.classList.remove('changing'), 300);
+    }
+    if (secondsEl.textContent !== String(countdownSeconds)) {
+      secondsEl.classList.add('changing');
+      setTimeout(() => secondsEl.classList.remove('changing'), 300);
+    }
+
+    daysEl.textContent = String(countdownDays).padStart(2, '0');
+    hoursEl.textContent = String(countdownHours).padStart(2, '0');
+    minutesEl.textContent = String(countdownMinutes).padStart(2, '0');
+    secondsEl.textContent = String(countdownSeconds).padStart(2, '0');
+  }
+
+  // Start countdown
+  const countdownInterval = setInterval(updateCountdown, 1000);
+
   // ===== Close Notification =====
   function closeNotification() {
     const banner = document.getElementById('notificationBanner');
