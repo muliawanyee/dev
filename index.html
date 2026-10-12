@@ -1505,24 +1505,24 @@
 
       <div class="chart-area">
         <div class="chart-placeholder">
-          <!-- Countdown Timer (Compact) -->
+          <!-- Countdown Timer (Compact & Persistent) -->
           <div class="countdown-container">
-            <div class="countdown-title">⏰ Open Trade and Listing Community</div>
+            <div class="countdown-title" id="countdownTitle">⏰ Open Trade and Listing Community</div>
             <div class="countdown-grid">
               <div class="countdown-item">
-                <div class="countdown-value" id="countdown-days">43</div>
+                <div class="countdown-value" id="countdown-days">00</div>
                 <div class="countdown-label">Days</div>
               </div>
               <div class="countdown-item">
-                <div class="countdown-value" id="countdown-hours">21</div>
+                <div class="countdown-value" id="countdown-hours">00</div>
                 <div class="countdown-label">Hours</div>
               </div>
               <div class="countdown-item">
-                <div class="countdown-value" id="countdown-minutes">25</div>
+                <div class="countdown-value" id="countdown-minutes">00</div>
                 <div class="countdown-label">Minutes</div>
               </div>
               <div class="countdown-item">
-                <div class="countdown-value" id="countdown-seconds">10</div>
+                <div class="countdown-value" id="countdown-seconds">00</div>
                 <div class="countdown-label">Seconds</div>
               </div>
             </div>
@@ -1825,74 +1825,54 @@
 </div>
 
 <script>
-  // ===== Countdown Timer =====
-  let countdownDays = 43;
-  let countdownHours = 21;
-  let countdownMinutes = 25;
-  let countdownSeconds = 10;
+  // ===== Countdown Timer (PERSISTENT - Fixed Date for All Users) =====
+  // Target: 24 November 2026, 21:25:10 UTC
+  // (Ini adalah tanggal fix yang sama untuk semua pengunjung)
+  // Jika ingin mengubah tanggal, edit baris di bawah ini:
+  const COUNTDOWN_TARGET_DATE = '2026-11-24T21:25:10Z';
+
+  const countdownTargetTime = new Date(COUNTDOWN_TARGET_DATE).getTime();
 
   function updateCountdown() {
-    const daysEl = document.getElementById('countdown-days');
-    const hoursEl = document.getElementById('countdown-hours');
-    const minutesEl = document.getElementById('countdown-minutes');
-    const secondsEl = document.getElementById('countdown-seconds');
+    const now = Date.now();
+    const remaining = Math.max(0, Math.floor((countdownTargetTime - now) / 1000));
 
-    // Decrease seconds
-    countdownSeconds--;
+    const days = Math.floor(remaining / 86400);
+    const hours = Math.floor((remaining % 86400) / 3600);
+    const minutes = Math.floor((remaining % 3600) / 60);
+    const seconds = remaining % 60;
 
-    // Handle seconds underflow
-    if (countdownSeconds < 0) {
-      countdownSeconds = 59;
-      countdownMinutes--;
+    const units = [
+      ['countdown-days', days],
+      ['countdown-hours', hours],
+      ['countdown-minutes', minutes],
+      ['countdown-seconds', seconds]
+    ];
 
-      // Handle minutes underflow
-      if (countdownMinutes < 0) {
-        countdownMinutes = 59;
-        countdownHours--;
+    units.forEach(([id, value]) => {
+      const el = document.getElementById(id);
+      const newText = String(value).padStart(2, '0');
 
-        // Handle hours underflow
-        if (countdownHours < 0) {
-          countdownHours = 23;
-          countdownDays--;
+      if (el.textContent !== newText) {
+        el.classList.remove('changing');
+        void el.offsetWidth; // Restart animasi
+        el.classList.add('changing');
+        el.textContent = newText;
 
-          // Handle countdown complete
-          if (countdownDays < 0) {
-            countdownDays = 0;
-            countdownHours = 0;
-            countdownMinutes = 0;
-            countdownSeconds = 0;
-            clearInterval(countdownInterval);
-            document.querySelector('.countdown-title').textContent = '🎉 Open Trade and Listing Community Now!';
-          }
-        }
+        setTimeout(() => el.classList.remove('changing'), 300);
       }
-    }
+    });
 
-    // Update display with animation
-    if (daysEl.textContent !== String(countdownDays)) {
-      daysEl.classList.add('changing');
-      setTimeout(() => daysEl.classList.remove('changing'), 300);
+    // Saat countdown selesai
+    if (remaining === 0) {
+      clearInterval(countdownInterval);
+      document.getElementById('countdownTitle').textContent =
+        '🎉 Open Trade and Listing Community Now!';
     }
-    if (hoursEl.textContent !== String(countdownHours)) {
-      hoursEl.classList.add('changing');
-      setTimeout(() => hoursEl.classList.remove('changing'), 300);
-    }
-    if (minutesEl.textContent !== String(countdownMinutes)) {
-      minutesEl.classList.add('changing');
-      setTimeout(() => minutesEl.classList.remove('changing'), 300);
-    }
-    if (secondsEl.textContent !== String(countdownSeconds)) {
-      secondsEl.classList.add('changing');
-      setTimeout(() => secondsEl.classList.remove('changing'), 300);
-    }
-
-    daysEl.textContent = String(countdownDays).padStart(2, '0');
-    hoursEl.textContent = String(countdownHours).padStart(2, '0');
-    minutesEl.textContent = String(countdownMinutes).padStart(2, '0');
-    secondsEl.textContent = String(countdownSeconds).padStart(2, '0');
   }
 
-  // Start countdown
+  // Jalankan langsung saat load, lalu update setiap detik
+  updateCountdown();
   const countdownInterval = setInterval(updateCountdown, 1000);
 
   // ===== Close Notification =====
