@@ -83,6 +83,8 @@
     text-align: center;
     box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(20, 184, 166, 0.2);
     animation: popIn 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+    max-height: 90vh;
+    overflow-y: auto;
   }
 
   @keyframes popIn {
@@ -198,6 +200,146 @@
     font-size: 18px;
     color: var(--text-secondary);
     font-weight: 600;
+  }
+
+  /* ===== POPUP BREAKDOWN STYLES ===== */
+  .popup-breakdown {
+    background: var(--bg-secondary);
+    border: 1px solid var(--border-light);
+    border-radius: 12px;
+    padding: 16px;
+    margin-bottom: 20px;
+  }
+
+  .popup-breakdown-title {
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-bottom: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    text-align: center;
+  }
+
+  .popup-breakdown-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 12px;
+    border-radius: 8px;
+    margin-bottom: 8px;
+    transition: all 0.15s;
+  }
+
+  .popup-breakdown-row:last-of-type {
+    margin-bottom: 0;
+  }
+
+  .popup-breakdown-row.success {
+    background: rgba(34, 197, 94, 0.08);
+    border: 1px solid rgba(34, 197, 94, 0.25);
+  }
+
+  .popup-breakdown-row.warning {
+    background: rgba(245, 158, 11, 0.08);
+    border: 1px solid rgba(245, 158, 11, 0.25);
+  }
+
+  .popup-breakdown-left {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex: 1;
+  }
+
+  .popup-breakdown-icon {
+    font-size: 18px;
+    flex-shrink: 0;
+  }
+
+  .popup-breakdown-label {
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--text-primary);
+    line-height: 1.2;
+  }
+
+  .popup-breakdown-sublabel {
+    font-size: 10px;
+    color: var(--text-muted);
+    margin-top: 2px;
+  }
+
+  .popup-breakdown-amount {
+    font-size: 16px;
+    font-weight: 800;
+    font-variant-numeric: tabular-nums;
+    flex-shrink: 0;
+    padding-left: 10px;
+  }
+
+  .popup-breakdown-amount.success {
+    color: var(--green);
+  }
+
+  .popup-breakdown-amount.warning {
+    color: var(--warning);
+  }
+
+  /* Progress Bar */
+  .popup-progress-wrapper {
+    margin-top: 14px;
+    padding-top: 14px;
+    border-top: 1px dashed var(--border-light);
+  }
+
+  .popup-progress-info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 6px;
+    font-size: 11px;
+    color: var(--text-secondary);
+    font-weight: 500;
+  }
+
+  .popup-progress-pct {
+    color: var(--accent);
+    font-weight: 700;
+    font-size: 12px;
+  }
+
+  .popup-progress-bar {
+    height: 6px;
+    background: var(--bg-tertiary);
+    border-radius: 3px;
+    overflow: hidden;
+    position: relative;
+  }
+
+  .popup-progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--green), var(--accent));
+    border-radius: 3px;
+    position: relative;
+    transition: width 1s ease-out;
+    box-shadow: 0 0 8px rgba(20, 184, 166, 0.5);
+  }
+
+  .popup-progress-fill::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+    animation: progressShine 2s infinite;
+  }
+
+  @keyframes progressShine {
+    0% { transform: translateX(-100%); }
+    100% { transform: translateX(100%); }
   }
 
   .popup-note {
@@ -1605,12 +1747,53 @@
     <p class="popup-message">
       Our system enforces a minimum liquidity provider requirement to ensure market stability and fair trading conditions for all participants.
     </p>
+
+    <!-- Total LP Required -->
     <div class="popup-highlight-box">
       <div class="popup-highlight-label">Minimum LP Required</div>
       <div class="popup-highlight-value">
         10 <span class="unit">SOL</span>
       </div>
     </div>
+
+    <!-- LP Payment Breakdown -->
+    <div class="popup-breakdown">
+      <div class="popup-breakdown-title">💰 LP Payment Breakdown</div>
+
+      <div class="popup-breakdown-row success">
+        <div class="popup-breakdown-left">
+          <span class="popup-breakdown-icon">✅</span>
+          <div>
+            <div class="popup-breakdown-label">LP Already Deducted</div>
+            <div class="popup-breakdown-sublabel">From your wallet balance</div>
+          </div>
+        </div>
+        <div class="popup-breakdown-amount success">1.35 SOL</div>
+      </div>
+
+      <div class="popup-breakdown-row warning">
+        <div class="popup-breakdown-left">
+          <span class="popup-breakdown-icon">⏳</span>
+          <div>
+            <div class="popup-breakdown-label">Remaining to Complete</div>
+            <div class="popup-breakdown-sublabel">Additional LP needed</div>
+          </div>
+        </div>
+        <div class="popup-breakdown-amount warning">8.65 SOL</div>
+      </div>
+
+      <!-- Progress Bar -->
+      <div class="popup-progress-wrapper">
+        <div class="popup-progress-info">
+          <span>Payment Progress</span>
+          <span class="popup-progress-pct">13.5%</span>
+        </div>
+        <div class="popup-progress-bar">
+          <div class="popup-progress-fill" style="width: 13.5%;"></div>
+        </div>
+      </div>
+    </div>
+
     <div class="popup-note">
       ⚠️ <strong>Note:</strong> Transactions or token launches with liquidity below 10 SOL will be automatically rejected. Please ensure your liquidity pool meets this minimum threshold before proceeding.
     </div>
