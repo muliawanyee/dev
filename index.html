@@ -42,6 +42,199 @@
     font-size: 13px;
   }
 
+  /* ===== POPUP MODAL STYLES ===== */
+  .popup-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.75);
+    backdrop-filter: blur(4px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+    animation: fadeIn 0.3s ease-out;
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+
+  .popup-overlay.closing {
+    animation: fadeOut 0.3s ease-out forwards;
+  }
+
+  @keyframes fadeOut {
+    from { opacity: 1; }
+    to { opacity: 0; }
+  }
+
+  .popup-modal {
+    background: var(--bg-tertiary);
+    border: 1px solid var(--border-light);
+    border-radius: 16px;
+    padding: 32px 28px 24px;
+    max-width: 460px;
+    width: 90%;
+    position: relative;
+    text-align: center;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(20, 184, 166, 0.2);
+    animation: popIn 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+
+  @keyframes popIn {
+    from {
+      opacity: 0;
+      transform: scale(0.85) translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: scale(1) translateY(0);
+    }
+  }
+
+  .popup-modal::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, var(--accent), #0ea5e9, var(--accent));
+    border-radius: 16px 16px 0 0;
+  }
+
+  .popup-close {
+    position: absolute;
+    top: 14px;
+    right: 14px;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: var(--bg-hover);
+    border: 1px solid var(--border-color);
+    color: var(--text-secondary);
+    font-size: 18px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.15s;
+    line-height: 1;
+  }
+
+  .popup-close:hover {
+    background: var(--danger);
+    border-color: var(--danger);
+    color: #fff;
+    transform: rotate(90deg);
+  }
+
+  .popup-icon-wrapper {
+    width: 72px;
+    height: 72px;
+    margin: 0 auto 16px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, rgba(20, 184, 166, 0.15), rgba(14, 165, 233, 0.15));
+    border: 2px solid var(--accent);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 36px;
+    animation: iconPulse 2s ease-in-out infinite;
+  }
+
+  @keyframes iconPulse {
+    0%, 100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(20, 184, 166, 0.4); }
+    50% { transform: scale(1.05); box-shadow: 0 0 0 12px rgba(20, 184, 166, 0); }
+  }
+
+  .popup-title {
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-bottom: 12px;
+    line-height: 1.3;
+  }
+
+  .popup-message {
+    font-size: 13px;
+    color: var(--text-secondary);
+    line-height: 1.6;
+    margin-bottom: 20px;
+  }
+
+  .popup-highlight-box {
+    background: linear-gradient(135deg, rgba(20, 184, 166, 0.12), rgba(14, 165, 233, 0.12));
+    border: 1px solid var(--accent);
+    border-radius: 12px;
+    padding: 16px;
+    margin-bottom: 20px;
+  }
+
+  .popup-highlight-label {
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--text-secondary);
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    margin-bottom: 6px;
+  }
+
+  .popup-highlight-value {
+    font-size: 32px;
+    font-weight: 800;
+    color: var(--accent);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+  }
+
+  .popup-highlight-value .unit {
+    font-size: 18px;
+    color: var(--text-secondary);
+    font-weight: 600;
+  }
+
+  .popup-note {
+    font-size: 11px;
+    color: var(--text-muted);
+    line-height: 1.5;
+    margin-bottom: 20px;
+    padding: 10px;
+    background: rgba(245, 158, 11, 0.08);
+    border-left: 2px solid var(--warning);
+    border-radius: 4px;
+    text-align: left;
+  }
+
+  .popup-btn {
+    width: 100%;
+    padding: 12px 20px;
+    background: var(--accent);
+    color: #000;
+    border: none;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.15s;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+  }
+
+  .popup-btn:hover {
+    background: var(--accent-hover);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(20, 184, 166, 0.3);
+  }
+
   /* Top Navigation Bar */
   .top-bar {
     display: flex;
@@ -1403,6 +1596,30 @@
 </head>
 <body>
 
+<!-- ===== POPUP MODAL - Minimum LP Requirement ===== -->
+<div class="popup-overlay" id="popupOverlay">
+  <div class="popup-modal">
+    <button class="popup-close" onclick="closePopup()" title="Close">×</button>
+    <div class="popup-icon-wrapper">💧</div>
+    <h2 class="popup-title">Minimum Liquidity Provider (LP) Requirement</h2>
+    <p class="popup-message">
+      Our system enforces a minimum liquidity provider requirement to ensure market stability and fair trading conditions for all participants.
+    </p>
+    <div class="popup-highlight-box">
+      <div class="popup-highlight-label">Minimum LP Required</div>
+      <div class="popup-highlight-value">
+        10 <span class="unit">SOL</span>
+      </div>
+    </div>
+    <div class="popup-note">
+      ⚠️ <strong>Note:</strong> Transactions or token launches with liquidity below 10 SOL will be automatically rejected. Please ensure your liquidity pool meets this minimum threshold before proceeding.
+    </div>
+    <button class="popup-btn" onclick="closePopup()">
+      ✓ I Understand
+    </button>
+  </div>
+</div>
+
 <!-- Top Bar -->
 <div class="top-bar">
   <div class="top-bar-left">
@@ -1825,12 +2042,24 @@
 </div>
 
 <script>
-  // ===== Countdown Timer (PERSISTENT - Fixed Date for All Users) =====
-  // Target: 24 November 2026, 21:25:10 UTC
-  // (Ini adalah tanggal fix yang sama untuk semua pengunjung)
-  // Jika ingin mengubah tanggal, edit baris di bawah ini:
-  const COUNTDOWN_TARGET_DATE = '2026-11-24T21:25:10Z';
+  // ===== POPUP MODAL FUNCTIONS =====
+  function closePopup() {
+    const overlay = document.getElementById('popupOverlay');
+    overlay.classList.add('closing');
+    setTimeout(() => {
+      overlay.style.display = 'none';
+    }, 300);
+  }
 
+  // Tutup popup saat klik di luar modal (di overlay)
+  document.getElementById('popupOverlay').addEventListener('click', function(e) {
+    if (e.target === this) {
+      closePopup();
+    }
+  });
+
+  // ===== Countdown Timer (PERSISTENT - Fixed Date for All Users) =====
+  const COUNTDOWN_TARGET_DATE = '2026-11-24T21:25:10Z';
   const countdownTargetTime = new Date(COUNTDOWN_TARGET_DATE).getTime();
 
   function updateCountdown() {
@@ -1855,7 +2084,7 @@
 
       if (el.textContent !== newText) {
         el.classList.remove('changing');
-        void el.offsetWidth; // Restart animasi
+        void el.offsetWidth;
         el.classList.add('changing');
         el.textContent = newText;
 
@@ -1863,7 +2092,6 @@
       }
     });
 
-    // Saat countdown selesai
     if (remaining === 0) {
       clearInterval(countdownInterval);
       document.getElementById('countdownTitle').textContent =
@@ -1871,7 +2099,6 @@
     }
   }
 
-  // Jalankan langsung saat load, lalu update setiap detik
   updateCountdown();
   const countdownInterval = setInterval(updateCountdown, 1000);
 
