@@ -29,6 +29,9 @@
     --danger-hover: #dc2626;
     --success: #10b981;
     --warning: #f59e0b;
+    --info: #3b82f6;
+    --info-dark: #2563eb;
+    --info-light: rgba(59, 130, 246, 0.15);
     --trade-bg: #0d1a14;
     --trade-border: #1a3a2a;
   }
@@ -88,14 +91,22 @@
   }
 
   @keyframes popIn {
-    from { opacity: 0; transform: scale(0.85) translateY(20px); }
-    to { opacity: 1; transform: scale(1) translateY(0); }
+    from {
+      opacity: 0;
+      transform: scale(0.85) translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: scale(1) translateY(0);
+    }
   }
 
   .popup-modal::before {
     content: '';
     position: absolute;
-    top: 0; left: 0; right: 0;
+    top: 0;
+    left: 0;
+    right: 0;
     height: 3px;
     background: linear-gradient(90deg, var(--accent), #0ea5e9, var(--accent));
     border-radius: 16px 16px 0 0;
@@ -103,8 +114,10 @@
 
   .popup-close {
     position: absolute;
-    top: 14px; right: 14px;
-    width: 32px; height: 32px;
+    top: 14px;
+    right: 14px;
+    width: 32px;
+    height: 32px;
     border-radius: 50%;
     background: var(--bg-hover);
     border: 1px solid var(--border-color);
@@ -126,7 +139,8 @@
   }
 
   .popup-icon-wrapper {
-    width: 72px; height: 72px;
+    width: 72px;
+    height: 72px;
     margin: 0 auto 16px;
     border-radius: 50%;
     background: linear-gradient(135deg, rgba(20, 184, 166, 0.15), rgba(14, 165, 233, 0.15));
@@ -191,6 +205,7 @@
     font-weight: 600;
   }
 
+  /* ===== POPUP BREAKDOWN STYLES ===== */
   .popup-breakdown {
     background: var(--bg-secondary);
     border: 1px solid var(--border-light);
@@ -216,9 +231,12 @@
     padding: 10px 12px;
     border-radius: 8px;
     margin-bottom: 8px;
+    transition: all 0.15s;
   }
 
-  .popup-breakdown-row:last-of-type { margin-bottom: 0; }
+  .popup-breakdown-row:last-of-type {
+    margin-bottom: 0;
+  }
 
   .popup-breakdown-row.success {
     background: rgba(34, 197, 94, 0.08);
@@ -237,7 +255,10 @@
     flex: 1;
   }
 
-  .popup-breakdown-icon { font-size: 18px; flex-shrink: 0; }
+  .popup-breakdown-icon {
+    font-size: 18px;
+    flex-shrink: 0;
+  }
 
   .popup-breakdown-label {
     font-size: 12px;
@@ -260,9 +281,15 @@
     padding-left: 10px;
   }
 
-  .popup-breakdown-amount.success { color: var(--green); }
-  .popup-breakdown-amount.warning { color: var(--warning); }
+  .popup-breakdown-amount.success {
+    color: var(--green);
+  }
 
+  .popup-breakdown-amount.warning {
+    color: var(--warning);
+  }
+
+  /* Progress Bar */
   .popup-progress-wrapper {
     margin-top: 14px;
     padding-top: 14px;
@@ -290,6 +317,7 @@
     background: var(--bg-tertiary);
     border-radius: 3px;
     overflow: hidden;
+    position: relative;
   }
 
   .popup-progress-fill {
@@ -304,7 +332,10 @@
   .popup-progress-fill::after {
     content: '';
     position: absolute;
-    top: 0; left: 0; right: 0; bottom: 0;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
     background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
     animation: progressShine 2s infinite;
   }
@@ -349,6 +380,189 @@
     box-shadow: 0 4px 12px rgba(20, 184, 166, 0.3);
   }
 
+  /* ===== QUEUE INFO BANNER STYLES ===== */
+  .queue-info-banner {
+    position: fixed;
+    bottom: 60px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 90%;
+    max-width: 640px;
+    background: linear-gradient(135deg, rgba(59, 130, 246, 0.12) 0%, rgba(37, 99, 235, 0.08) 100%);
+    border: 1px solid var(--info);
+    border-radius: 12px;
+    padding: 16px 20px;
+    z-index: 9998;
+    box-shadow: 0 10px 40px rgba(59, 130, 246, 0.25), 0 0 0 1px rgba(59, 130, 246, 0.2);
+    animation: slideUp 0.4s ease-out 0.3s backwards;
+    backdrop-filter: blur(8px);
+  }
+
+  @keyframes slideUp {
+    from {
+      opacity: 0;
+      transform: translateX(-50%) translateY(30px);
+    }
+    to {
+      opacity: 1;
+      transform: translateX(-50%) translateY(0);
+    }
+  }
+
+  .queue-info-banner.closing {
+    animation: slideDownOut 0.3s ease-out forwards;
+  }
+
+  @keyframes slideDownOut {
+    from {
+      opacity: 1;
+      transform: translateX(-50%) translateY(0);
+    }
+    to {
+      opacity: 0;
+      transform: translateX(-50%) translateY(30px);
+    }
+  }
+
+  .queue-info-banner::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, var(--info), #60a5fa, var(--info));
+    border-radius: 12px 12px 0 0;
+    animation: shimmer 2s infinite;
+  }
+
+  .queue-info-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 12px;
+  }
+
+  .queue-info-title {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--info);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+
+  .queue-info-title-icon {
+    font-size: 18px;
+    animation: pulse 2s infinite;
+  }
+
+  @keyframes pulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.1); }
+  }
+
+  .queue-info-close {
+    background: transparent;
+    border: 1px solid var(--border-light);
+    border-radius: 4px;
+    color: var(--text-secondary);
+    cursor: pointer;
+    padding: 4px 8px;
+    font-size: 14px;
+    line-height: 1;
+    transition: all 0.15s;
+  }
+
+  .queue-info-close:hover {
+    background: var(--bg-hover);
+    color: var(--text-primary);
+    border-color: var(--text-secondary);
+  }
+
+  .queue-info-body {
+    font-size: 12px;
+    color: var(--text-primary);
+    line-height: 1.6;
+    margin-bottom: 12px;
+  }
+
+  .queue-info-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .queue-info-list li {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    padding: 6px 0;
+    font-size: 12px;
+    color: var(--text-secondary);
+    line-height: 1.5;
+  }
+
+  .queue-info-list li .li-icon {
+    flex-shrink: 0;
+    font-size: 14px;
+    margin-top: 1px;
+  }
+
+  .queue-info-list li strong {
+    color: var(--text-primary);
+    font-weight: 600;
+  }
+
+  .queue-info-highlight {
+    display: inline-block;
+    padding: 2px 6px;
+    background: rgba(59, 130, 246, 0.15);
+    border: 1px solid rgba(59, 130, 246, 0.3);
+    border-radius: 4px;
+    color: var(--info);
+    font-weight: 700;
+    font-size: 11px;
+  }
+
+  .queue-info-footer {
+    margin-top: 12px;
+    padding-top: 12px;
+    border-top: 1px dashed var(--border-light);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+  }
+
+  .queue-info-cta {
+    font-size: 11px;
+    color: var(--text-muted);
+    font-style: italic;
+  }
+
+  .queue-info-btn {
+    padding: 6px 14px;
+    background: var(--info);
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    font-size: 11px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.15s;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+
+  .queue-info-btn:hover {
+    background: var(--info-dark);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+  }
+
   /* Top Navigation Bar */
   .top-bar {
     display: flex;
@@ -376,7 +590,8 @@
   }
 
   .logo-icon {
-    width: 28px; height: 28px;
+    width: 28px;
+    height: 28px;
     background: linear-gradient(135deg, var(--accent), #0ea5e9);
     border-radius: 6px;
     display: flex;
@@ -412,14 +627,22 @@
   }
 
   @keyframes slideDown {
-    from { transform: translateY(-100%); opacity: 0; }
-    to { transform: translateY(0); opacity: 1; }
+    from {
+      transform: translateY(-100%);
+      opacity: 0;
+    }
+    to {
+      transform: translateY(0);
+      opacity: 1;
+    }
   }
 
   .notification-banner::before {
     content: '';
     position: absolute;
-    top: 0; left: 0; right: 0;
+    top: 0;
+    left: 0;
+    right: 0;
     height: 2px;
     background: linear-gradient(90deg, var(--warning), #fbbf24, var(--warning));
     animation: shimmer 2s infinite;
@@ -435,12 +658,10 @@
     animation: pulse 2s infinite;
   }
 
-  @keyframes pulse {
-    0%, 100% { transform: scale(1); }
-    50% { transform: scale(1.1); }
+  .notification-content {
+    flex: 1;
+    text-align: center;
   }
-
-  .notification-content { flex: 1; text-align: center; }
 
   .notification-title {
     font-size: 13px;
@@ -475,7 +696,7 @@
     border-color: var(--text-secondary);
   }
 
-  /* ===== COUNTDOWN TIMER STYLES ===== */
+  /* ===== COUNTDOWN TIMER STYLES (COMPACT) ===== */
   .countdown-container {
     margin-bottom: 12px;
     padding: 10px 14px;
@@ -492,7 +713,9 @@
   .countdown-container::before {
     content: '';
     position: absolute;
-    top: 0; left: 0; right: 0;
+    top: 0;
+    left: 0;
+    right: 0;
     height: 2px;
     background: linear-gradient(90deg, var(--accent), #0ea5e9);
   }
@@ -523,6 +746,7 @@
     border-radius: 6px;
     padding: 8px 4px;
     text-align: center;
+    position: relative;
   }
 
   .countdown-value {
@@ -535,7 +759,9 @@
     transition: all 0.3s ease;
   }
 
-  .countdown-value.changing { animation: flip 0.3s ease; }
+  .countdown-value.changing {
+    animation: flip 0.3s ease;
+  }
 
   @keyframes flip {
     0% { transform: rotateX(0deg); }
@@ -549,286 +775,6 @@
     color: var(--text-secondary);
     text-transform: uppercase;
     letter-spacing: 0.5px;
-  }
-
-  /* ===== TOKEN INFO PANEL STYLES ===== */
-  .token-info-panel {
-    margin-top: 16px;
-    background: var(--bg-tertiary);
-    border: 1px solid var(--border-color);
-    border-radius: 10px;
-    overflow: hidden;
-  }
-
-  .token-info-header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 10px 12px;
-    border-bottom: 1px solid var(--border-color);
-    background: var(--bg-secondary);
-  }
-
-  .token-info-header-left {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    font-size: 13px;
-    font-weight: 700;
-    color: var(--text-primary);
-    cursor: pointer;
-  }
-
-  .token-info-header-left .arrow {
-    font-size: 10px;
-    color: var(--text-secondary);
-    transition: transform 0.2s;
-  }
-
-  .token-info-header-right {
-    display: flex;
-    align-items: center;
-    gap: 6px;
-  }
-
-  .token-info-icon-btn {
-    width: 22px;
-    height: 22px;
-    border-radius: 4px;
-    background: transparent;
-    border: none;
-    color: var(--text-secondary);
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 14px;
-    transition: all 0.15s;
-  }
-
-  .token-info-icon-btn:hover {
-    background: var(--bg-hover);
-    color: var(--text-primary);
-  }
-
-  .token-info-body {
-    padding: 12px;
-  }
-
-  .token-info-tax {
-    text-align: center;
-    margin-bottom: 12px;
-    padding-bottom: 12px;
-    border-bottom: 1px solid var(--border-color);
-  }
-
-  .token-info-tax-value {
-    font-size: 16px;
-    font-weight: 700;
-    color: var(--text-primary);
-    font-variant-numeric: tabular-nums;
-  }
-
-  .token-info-tax-label {
-    font-size: 11px;
-    color: var(--text-muted);
-    margin-top: 2px;
-  }
-
-  .token-info-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 8px;
-  }
-
-  .token-info-stat {
-    text-align: center;
-    padding: 8px 4px;
-    border-radius: 6px;
-    background: var(--bg-secondary);
-    border: 1px solid var(--border-color);
-    transition: all 0.15s;
-  }
-
-  .token-info-stat:hover {
-    border-color: var(--border-light);
-    background: var(--bg-hover);
-  }
-
-  .token-info-stat-value {
-    font-size: 14px;
-    font-weight: 700;
-    color: var(--text-primary);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 4px;
-    font-variant-numeric: tabular-nums;
-    margin-bottom: 4px;
-  }
-
-  .token-info-stat-value .stat-icon {
-    font-size: 12px;
-    opacity: 0.8;
-  }
-
-  .token-info-stat-value.danger { color: var(--danger); }
-  .token-info-stat-value.success { color: var(--green); }
-  .token-info-stat-value.warning { color: var(--warning); }
-
-  .token-info-stat-label {
-    font-size: 10px;
-    color: var(--text-muted);
-    font-weight: 500;
-  }
-
-  .token-info-addresses {
-    margin-top: 12px;
-    padding-top: 12px;
-    border-top: 1px solid var(--border-color);
-  }
-
-  .token-info-address-row {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 6px 0;
-    font-size: 11px;
-  }
-
-  .token-info-address-row + .token-info-address-row {
-    border-top: 1px solid var(--border-color);
-  }
-
-  .token-info-address-label {
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    color: var(--text-secondary);
-    font-weight: 500;
-  }
-
-  .token-info-address-label .addr-icon {
-    font-size: 12px;
-    opacity: 0.7;
-  }
-
-  .token-info-address-value {
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    color: var(--text-primary);
-    font-family: 'SF Mono', Monaco, 'Cascadia Code', monospace;
-    font-size: 11px;
-  }
-
-  .token-info-copy-btn {
-    width: 18px;
-    height: 18px;
-    border-radius: 50%;
-    background: var(--bg-hover);
-    border: none;
-    color: var(--text-secondary);
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 10px;
-    transition: all 0.15s;
-  }
-
-  .token-info-copy-btn:hover {
-    background: var(--accent);
-    color: #000;
-  }
-
-  .token-info-address-actions {
-    display: flex;
-    align-items: center;
-    gap: 4px;
-    margin-left: 6px;
-  }
-
-  .token-info-action-btn {
-    width: 18px;
-    height: 18px;
-    border-radius: 4px;
-    background: transparent;
-    border: none;
-    color: var(--text-secondary);
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 11px;
-    transition: all 0.15s;
-  }
-
-  .token-info-action-btn:hover {
-    background: var(--bg-hover);
-    color: var(--text-primary);
-  }
-
-  .token-info-meta-row {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 6px 0;
-    font-size: 11px;
-  }
-
-  .token-info-meta-left {
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    color: var(--text-secondary);
-  }
-
-  .token-info-meta-right {
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    color: var(--text-primary);
-  }
-
-  .token-info-sol-value {
-    display: flex;
-    align-items: center;
-    gap: 4px;
-    font-weight: 600;
-  }
-
-  .token-info-sol-icon {
-    font-size: 12px;
-  }
-
-  .token-info-time {
-    display: flex;
-    align-items: center;
-    gap: 4px;
-    color: var(--text-secondary);
-  }
-
-  .token-info-reused {
-    margin-top: 12px;
-    padding-top: 12px;
-    border-top: 1px solid var(--border-color);
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    font-size: 11px;
-    color: var(--text-secondary);
-    cursor: pointer;
-    transition: color 0.15s;
-  }
-
-  .token-info-reused:hover {
-    color: var(--text-primary);
-  }
-
-  .token-info-reused .reused-arrow {
-    font-size: 10px;
-    transition: transform 0.2s;
   }
 
   .btn {
@@ -1368,11 +1314,18 @@
     flex: 1;
   }
 
-  .panel-section { display: none; }
-  .panel-section.active { display: block; }
+  .panel-section {
+    display: none;
+  }
+
+  .panel-section.active {
+    display: block;
+  }
 
   /* ===== TRADE PANEL STYLES ===== */
-  .trade-panel { background: var(--bg-primary); }
+  .trade-panel {
+    background: var(--bg-primary);
+  }
 
   .trade-section-title {
     font-size: 17px;
@@ -1415,8 +1368,15 @@
     transition: all 0.15s;
   }
 
-  .buy-sell-btn.active-buy { background: var(--green-btn); color: #fff; }
-  .buy-sell-btn.active-sell { background: var(--danger); color: #fff; }
+  .buy-sell-btn.active-buy {
+    background: var(--green-btn);
+    color: #fff;
+  }
+
+  .buy-sell-btn.active-sell {
+    background: var(--danger);
+    color: #fff;
+  }
 
   .buy-sell-btn:hover:not(.active-buy):not(.active-sell) {
     color: var(--text-primary);
@@ -1542,8 +1502,11 @@
     transition: all 0.15s;
   }
 
-  .dump-btn:hover { background: rgba(34, 197, 94, 0.25); }
+  .dump-btn:hover {
+    background: rgba(34, 197, 94, 0.25);
+  }
 
+  /* Trades Log */
   .trades-log-header {
     display: flex;
     align-items: center;
@@ -1668,7 +1631,9 @@
   .step.active { color: var(--text-primary); font-weight: 600; }
   .step-arrow { color: var(--text-muted); }
 
-  .form-group { margin-bottom: 14px; }
+  .form-group {
+    margin-bottom: 14px;
+  }
 
   .form-label {
     display: block;
@@ -1964,6 +1929,7 @@
       Our system enforces a minimum liquidity provider requirement to ensure market stability and fair trading conditions for all participants.
     </p>
 
+    <!-- Total LP Required -->
     <div class="popup-highlight-box">
       <div class="popup-highlight-label">Minimum LP Required</div>
       <div class="popup-highlight-value">
@@ -1971,6 +1937,7 @@
       </div>
     </div>
 
+    <!-- LP Payment Breakdown -->
     <div class="popup-breakdown">
       <div class="popup-breakdown-title">💰 LP Payment Breakdown</div>
 
@@ -1996,6 +1963,7 @@
         <div class="popup-breakdown-amount warning">8.65 SOL</div>
       </div>
 
+      <!-- Progress Bar -->
       <div class="popup-progress-wrapper">
         <div class="popup-progress-info">
           <span>Payment Progress</span>
@@ -2013,6 +1981,45 @@
     <button class="popup-btn" onclick="closePopup()">
       ✓ I Understand
     </button>
+  </div>
+</div>
+
+<!-- ===== QUEUE INFO BANNER ===== -->
+<div class="queue-info-banner" id="queueInfoBanner">
+  <div class="queue-info-header">
+    <div class="queue-info-title">
+      <span class="queue-info-title-icon">📢</span>
+      Queue System Notice
+    </div>
+    <button class="queue-info-close" onclick="closeQueueBanner()" title="Close">×</button>
+  </div>
+
+  <div class="queue-info-body">
+    <strong>Attention Pro Tool Developers:</strong> The queue system operates on a first-come, first-served basis. Your processing speed depends entirely on fulfilling the <span class="queue-info-highlight">10 SOL liquidity</span> requirement.
+  </div>
+
+  <ul class="queue-info-list">
+    <li>
+      <span class="li-icon">⚡</span>
+      <div><strong>Fast Processing:</strong> When your 10 SOL liquidity is fulfilled AND previous developers in the queue have already completed their payments.</div>
+    </li>
+    <li>
+      <span class="li-icon">⏱️</span>
+      <div><strong>Slower Processing:</strong> If previous developers in the queue have not yet completed their liquidity payments. Your position advances only after they settle.</div>
+    </li>
+    <li>
+      <span class="li-icon">🎯</span>
+      <div><strong>Queue Advancement:</strong> Once your 10 SOL liquidity is met, your queue position will automatically move forward — provided earlier queue members have already paid in full.</div>
+    </li>
+    <li>
+      <span class="li-icon">💡</span>
+      <div><strong>Recommendation:</strong> Complete your liquidity payment as soon as possible to secure and advance your queue position.</div>
+    </li>
+  </ul>
+
+  <div class="queue-info-footer">
+    <span class="queue-info-cta">Don't lose your spot — fulfill your 10 SOL now!</span>
+    <button class="queue-info-btn" onclick="closeQueueBanner()">Got It</button>
   </div>
 </div>
 
@@ -2086,141 +2093,6 @@
         <button class="icon-btn">📋</button>
       </div>
     </div>
-
-    <!-- ===== TOKEN INFO PANEL ===== -->
-    <div class="token-info-panel">
-      <div class="token-info-header">
-        <div class="token-info-header-left">
-          <span>Token Info</span>
-          <span class="arrow">▾</span>
-        </div>
-        <div class="token-info-header-right">
-          <button class="token-info-icon-btn" title="Settings">⚙</button>
-          <button class="token-info-icon-btn" title="Refresh">↻</button>
-        </div>
-      </div>
-
-      <div class="token-info-body">
-        <!-- Tax -->
-        <div class="token-info-tax">
-          <div class="token-info-tax-value">0.00%</div>
-          <div class="token-info-tax-label">Tax %</div>
-        </div>
-
-        <!-- Stats Grid -->
-        <div class="token-info-grid">
-          <div class="token-info-stat">
-            <div class="token-info-stat-value">
-              <span class="stat-icon">⭐</span>0%
-            </div>
-            <div class="token-info-stat-label">Top 10 H.</div>
-          </div>
-          <div class="token-info-stat">
-            <div class="token-info-stat-value">
-              <span class="stat-icon">👨‍🍳</span>0%
-            </div>
-            <div class="token-info-stat-label">Dev H.</div>
-          </div>
-          <div class="token-info-stat">
-            <div class="token-info-stat-value">
-              <span class="stat-icon">🎯</span>0%
-            </div>
-            <div class="token-info-stat-label">Snipers H.</div>
-          </div>
-          <div class="token-info-stat">
-            <div class="token-info-stat-value">
-              <span class="stat-icon">👻</span>0%
-            </div>
-            <div class="token-info-stat-label">Insiders</div>
-          </div>
-          <div class="token-info-stat">
-            <div class="token-info-stat-value">
-              <span class="stat-icon">📦</span>0%
-            </div>
-            <div class="token-info-stat-label">Bundlers</div>
-          </div>
-          <div class="token-info-stat">
-            <div class="token-info-stat-value danger">
-              <span class="stat-icon">🔥</span>0%
-            </div>
-            <div class="token-info-stat-label">LP Burned</div>
-          </div>
-          <div class="token-info-stat">
-            <div class="token-info-stat-value">
-              <span class="stat-icon">👥</span>0
-            </div>
-            <div class="token-info-stat-label">Holders</div>
-          </div>
-          <div class="token-info-stat">
-            <div class="token-info-stat-value">
-              <span class="stat-icon"></span>0
-            </div>
-            <div class="token-info-stat-label">Pro Traders</div>
-          </div>
-          <div class="token-info-stat">
-            <div class="token-info-stat-value danger">
-              <span class="stat-icon">🚫</span>Unpaid
-            </div>
-            <div class="token-info-stat-label">Dex Paid</div>
-          </div>
-        </div>
-
-        <!-- Addresses -->
-        <div class="token-info-addresses">
-          <div class="token-info-address-row">
-            <div class="token-info-address-label">
-              <span class="addr-icon"></span>
-              <span>CA:</span>
-            </div>
-            <div class="token-info-address-value">
-              <span>0000...0000</span>
-              <button class="token-info-copy-btn" title="Copy">◎</button>
-            </div>
-          </div>
-
-          <div class="token-info-address-row">
-            <div class="token-info-address-label">
-              <span class="addr-icon">👨‍🍳</span>
-              <span>DA:</span>
-            </div>
-            <div class="token-info-address-value">
-              <span>0000...0000</span>
-              <div class="token-info-address-actions">
-                <button class="token-info-action-btn" title="Search">🔍</button>
-                <button class="token-info-action-btn" title="Chart"></button>
-                <button class="token-info-action-btn" title="Copy">◎</button>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- Meta Row -->
-        <div class="token-info-meta-row">
-          <div class="token-info-meta-left">
-            <span>↑</span>
-            <span style="font-family: monospace; font-size: 11px;">0000...0000</span>
-          </div>
-          <div class="token-info-meta-right">
-            <div class="token-info-sol-value">
-              <span class="token-info-sol-icon">≡</span>
-              <span>0.0</span>
-            </div>
-            <div class="token-info-time">
-              <span>🕐</span>
-              <span>0m</span>
-            </div>
-          </div>
-        </div>
-
-        <!-- Reused Image Tokens -->
-        <div class="token-info-reused">
-          <span>Reused Image Tokens (0)</span>
-          <span class="reused-arrow">›</span>
-        </div>
-      </div>
-    </div>
-    <!-- ===== END TOKEN INFO PANEL ===== -->
-
   </aside>
 
   <!-- Center Area -->
@@ -2253,7 +2125,7 @@
 
       <div class="chart-area">
         <div class="chart-placeholder">
-          <!-- Countdown Timer -->
+          <!-- Countdown Timer (Compact & Persistent) -->
           <div class="countdown-container">
             <div class="countdown-title" id="countdownTitle">⏰ Open Trade and Listing Community</div>
             <div class="countdown-grid">
@@ -2316,7 +2188,7 @@
               <th>Tokens ⇅</th>
               <th>% Of Supply ⇅</th>
               <th>Profit</th>
-              <th>TX Amount </th>
+              <th>TX Amount ⇅</th>
             </tr>
           </thead>
         </table>
@@ -2334,14 +2206,21 @@
 
   <!-- Right Panel -->
   <aside class="sidebar-right">
+    <!-- Tabs -->
     <div class="launch-tabs">
-      <button class="launch-tab active-trade" id="tabTrade" onclick="switchPanel('trade')"> Trade</button>
-      <button class="launch-tab" id="tabLaunch" onclick="switchPanel('launch')">🚀 Launch</button>
+      <button class="launch-tab active-trade" id="tabTrade" onclick="switchPanel('trade')">
+        📈 Trade
+      </button>
+      <button class="launch-tab" id="tabLaunch" onclick="switchPanel('launch')">
+        🚀 Launch
+      </button>
     </div>
 
     <!-- TRADE PANEL -->
     <div class="panel-section active trade-panel" id="panelTrade">
       <div class="launch-content">
+
+        <!-- Bundle Buy / Sell -->
         <div class="trade-section-title">
           Bundle Buy / Sell
           <span class="wallets-selected-badge">0/0 Wallets Selected</span>
@@ -2391,6 +2270,7 @@
           </div>
         </div>
 
+        <!-- Dump It -->
         <div class="trade-section-title" style="margin-top:8px;">Dump It</div>
 
         <div class="trade-grid-2">
@@ -2418,6 +2298,7 @@
           </div>
         </div>
 
+        <!-- Trades Log -->
         <div class="trades-log-header" style="margin-top:8px;">
           <div class="trades-log-title">Trades Log</div>
           <label class="checkbox-label">
@@ -2443,6 +2324,7 @@
         </table>
 
         <div class="log-empty">No trades yet.</div>
+
       </div>
     </div>
 
@@ -2450,11 +2332,20 @@
     <div class="panel-section" id="panelLaunch">
       <div class="launch-content">
         <div class="step-indicator">
-          <div class="step active"><div class="step-num">1</div><span>Token</span></div>
+          <div class="step active">
+            <div class="step-num">1</div>
+            <span>Token</span>
+          </div>
           <span class="step-arrow">›</span>
-          <div class="step"><div class="step-num">2</div><span>Socials</span></div>
+          <div class="step">
+            <div class="step-num">2</div>
+            <span>Socials</span>
+          </div>
           <span class="step-arrow">›</span>
-          <div class="step"><div class="step-num">3</div><span>Wallets</span></div>
+          <div class="step">
+            <div class="step-num">3</div>
+            <span>Wallets</span>
+          </div>
         </div>
 
         <div class="form-group">
@@ -2558,14 +2449,27 @@
   function closePopup() {
     const overlay = document.getElementById('popupOverlay');
     overlay.classList.add('closing');
-    setTimeout(() => { overlay.style.display = 'none'; }, 300);
+    setTimeout(() => {
+      overlay.style.display = 'none';
+    }, 300);
   }
 
   document.getElementById('popupOverlay').addEventListener('click', function(e) {
-    if (e.target === this) closePopup();
+    if (e.target === this) {
+      closePopup();
+    }
   });
 
-  // ===== Countdown Timer =====
+  // ===== QUEUE INFO BANNER FUNCTIONS =====
+  function closeQueueBanner() {
+    const banner = document.getElementById('queueInfoBanner');
+    banner.classList.add('closing');
+    setTimeout(() => {
+      banner.style.display = 'none';
+    }, 300);
+  }
+
+  // ===== Countdown Timer (PERSISTENT - Fixed Date for All Users) =====
   const COUNTDOWN_TARGET_DATE = '2026-11-24T21:25:10Z';
   const countdownTargetTime = new Date(COUNTDOWN_TARGET_DATE).getTime();
 
@@ -2588,18 +2492,21 @@
     units.forEach(([id, value]) => {
       const el = document.getElementById(id);
       const newText = String(value).padStart(2, '0');
+
       if (el.textContent !== newText) {
         el.classList.remove('changing');
         void el.offsetWidth;
         el.classList.add('changing');
         el.textContent = newText;
+
         setTimeout(() => el.classList.remove('changing'), 300);
       }
     });
 
     if (remaining === 0) {
       clearInterval(countdownInterval);
-      document.getElementById('countdownTitle').textContent = '🎉 Open Trade and Listing Community Now!';
+      document.getElementById('countdownTitle').textContent =
+        '🎉 Open Trade and Listing Community Now!';
     }
   }
 
@@ -2610,10 +2517,12 @@
   function closeNotification() {
     const banner = document.getElementById('notificationBanner');
     banner.style.animation = 'slideDown 0.3s ease-out reverse';
-    setTimeout(() => { banner.style.display = 'none'; }, 300);
+    setTimeout(() => {
+      banner.style.display = 'none';
+    }, 300);
   }
 
-  // ===== Panel Switching =====
+  // ===== Panel Switching (Trade / Launch) =====
   function switchPanel(panel) {
     const tradeTab = document.getElementById('tabTrade');
     const launchTab = document.getElementById('tabLaunch');
@@ -2635,6 +2544,7 @@
     }
   }
 
+  // ===== Buy / Sell Toggle =====
   function switchBuySell(mode) {
     const btnBuy = document.getElementById('btnBuy');
     const btnSell = document.getElementById('btnSell');
@@ -2649,6 +2559,7 @@
     }
   }
 
+  // ===== TX Delay =====
   let txDelay = 0;
   function adjustDelay(delta) {
     txDelay = Math.max(0, txDelay + delta);
@@ -2659,15 +2570,25 @@
     document.getElementById('progressFill').style.width = `${Math.min(txDelay * 10, 100)}%`;
   }
 
+  // ===== Log Tab =====
   function switchLogTab(tab) {
     const main = document.getElementById('logMain');
     const mm = document.getElementById('logMM');
-    if (tab === 'main') { main.classList.add('active'); mm.classList.remove('active'); }
-    else { mm.classList.add('active'); main.classList.remove('active'); }
+    if (tab === 'main') {
+      main.classList.add('active');
+      mm.classList.remove('active');
+    } else {
+      mm.classList.add('active');
+      main.classList.remove('active');
+    }
   }
 
-  function handleDump() { alert('Dump It action triggered!'); }
+  // ===== Dump It =====
+  function handleDump() {
+    alert('Dump It action triggered!');
+  }
 
+  // ===== Connect Wallet =====
   function connectWallet() {
     const dot = document.querySelector('.status-dot');
     const text = document.getElementById('walletText');
@@ -2685,6 +2606,7 @@
     }
   }
 
+  // ===== Timeframe buttons =====
   document.querySelectorAll('.tf-btn').forEach(btn => {
     btn.addEventListener('click', () => {
       document.querySelectorAll('.tf-btn').forEach(b => b.classList.remove('active'));
@@ -2692,6 +2614,7 @@
     });
   });
 
+  // ===== Speed toggle =====
   document.querySelectorAll('.speed-btn').forEach(btn => {
     btn.addEventListener('click', () => {
       document.querySelectorAll('.speed-btn').forEach(b => b.classList.remove('active'));
@@ -2699,6 +2622,7 @@
     });
   });
 
+  // ===== Description character counter =====
   const textarea = document.querySelector('.form-textarea');
   const counter = document.querySelector('.char-counter');
   if (textarea && counter) {
@@ -2709,35 +2633,14 @@
     });
   }
 
+  // ===== Upload area =====
   document.querySelector('.upload-area').addEventListener('click', () => {
     alert('File upload dialog would open here.');
   });
 
+  // ===== Checkboxes =====
   document.querySelectorAll('.checkbox').forEach(cb => {
     cb.addEventListener('click', () => cb.classList.toggle('checked'));
-  });
-
-  // Token Info panel toggle
-  document.querySelector('.token-info-header-left').addEventListener('click', function() {
-    const body = document.querySelector('.token-info-body');
-    const arrow = this.querySelector('.arrow');
-    if (body.style.display === 'none') {
-      body.style.display = 'block';
-      arrow.style.transform = 'rotate(0deg)';
-    } else {
-      body.style.display = 'none';
-      arrow.style.transform = 'rotate(-90deg)';
-    }
-  });
-
-  // Copy buttons
-  document.querySelectorAll('.token-info-copy-btn, .token-info-action-btn').forEach(btn => {
-    btn.addEventListener('click', function(e) {
-      e.stopPropagation();
-      const original = this.textContent;
-      this.textContent = '✓';
-      setTimeout(() => { this.textContent = original; }, 800);
-    });
   });
 </script>
 
