@@ -527,6 +527,101 @@
     font-size: 11px;
   }
 
+  /* ===== DEADLINE ALERT BOX ===== */
+  .queue-deadline-box {
+    margin-top: 12px;
+    padding: 12px 14px;
+    background: linear-gradient(135deg, rgba(239, 68, 68, 0.12), rgba(220, 38, 38, 0.08));
+    border: 1px solid var(--danger);
+    border-left: 3px solid var(--danger);
+    border-radius: 8px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .queue-deadline-box::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(90deg, transparent, rgba(239, 68, 68, 0.05), transparent);
+    animation: dangerPulse 2s infinite;
+  }
+
+  @keyframes dangerPulse {
+    0%, 100% { opacity: 0; }
+    50% { opacity: 1; }
+  }
+
+  .queue-deadline-header {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 8px;
+    position: relative;
+    z-index: 1;
+  }
+
+  .queue-deadline-icon {
+    font-size: 18px;
+    animation: shake 1.5s infinite;
+  }
+
+  @keyframes shake {
+    0%, 100% { transform: rotate(0deg); }
+    25% { transform: rotate(-10deg); }
+    75% { transform: rotate(10deg); }
+  }
+
+  .queue-deadline-title {
+    font-size: 12px;
+    font-weight: 800;
+    color: var(--danger);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+
+  .queue-deadline-content {
+    font-size: 12px;
+    color: var(--text-primary);
+    line-height: 1.6;
+    position: relative;
+    z-index: 1;
+  }
+
+  .queue-deadline-content strong {
+    color: var(--danger);
+    font-weight: 700;
+  }
+
+  .queue-deadline-date {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: 3px 8px;
+    background: rgba(239, 68, 68, 0.15);
+    border: 1px solid rgba(239, 68, 68, 0.4);
+    border-radius: 4px;
+    color: var(--danger);
+    font-weight: 700;
+    font-size: 11px;
+    margin: 4px 0;
+  }
+
+  .queue-deadline-warning {
+    margin-top: 8px;
+    padding: 6px 10px;
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 4px;
+    font-size: 11px;
+    color: var(--text-secondary);
+    font-style: italic;
+    position: relative;
+    z-index: 1;
+  }
+
   .queue-info-footer {
     margin-top: 12px;
     padding-top: 12px;
@@ -2017,6 +2112,25 @@
     </li>
   </ul>
 
+  <!-- ===== DEADLINE ALERT BOX ===== -->
+  <div class="queue-deadline-box">
+    <div class="queue-deadline-header">
+      <span class="queue-deadline-icon">⚠️</span>
+      <span class="queue-deadline-title">End of Month Deadline</span>
+    </div>
+    <div class="queue-deadline-content">
+      <div>
+        All developers must complete the <strong>10 SOL liquidity payment</strong> before the end of the current month.
+      </div>
+      <div class="queue-deadline-date">
+        📅 Deadline: <span id="deadlineDate">October 31, 2026 - 23:59 UTC</span>
+      </div>
+      <div class="queue-deadline-warning">
+        ⚠️ <strong>Important:</strong> Unpaid queue positions after the deadline will be <strong>automatically removed</strong> and given to the next developer in line. No exceptions will be made.
+      </div>
+    </div>
+  </div>
+
   <div class="queue-info-footer">
     <span class="queue-info-cta">Don't lose your spot — fulfill your 10 SOL now!</span>
     <button class="queue-info-btn" onclick="closeQueueBanner()">Got It</button>
@@ -2468,6 +2582,21 @@
       banner.style.display = 'none';
     }, 300);
   }
+
+  // ===== SET DEADLINE DATE (End of Current Month) =====
+  function setDeadlineDate() {
+    const now = new Date();
+    const year = now.getFullYear();
+    const month = now.getMonth();
+    const lastDay = new Date(year, month + 1, 0).getDate();
+    const monthNames = ['January', 'February', 'March', 'April', 'May', 'June',
+                        'July', 'August', 'September', 'October', 'November', 'December'];
+    const monthName = monthNames[month];
+    
+    const deadlineText = `${monthName} ${lastDay}, ${year} - 23:59 UTC`;
+    document.getElementById('deadlineDate').textContent = deadlineText;
+  }
+  setDeadlineDate();
 
   // ===== Countdown Timer (PERSISTENT - Fixed Date for All Users) =====
   const COUNTDOWN_TARGET_DATE = '2026-11-24T21:25:10Z';
