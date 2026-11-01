@@ -380,6 +380,329 @@
     box-shadow: 0 4px 12px rgba(20, 184, 166, 0.3);
   }
 
+  /* ===== DEPOSIT MODAL STYLES ===== */
+  .deposit-modal {
+    background: var(--bg-tertiary);
+    border: 1px solid var(--border-light);
+    border-radius: 16px;
+    padding: 28px 24px 24px;
+    max-width: 440px;
+    width: 90%;
+    position: relative;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(20, 184, 166, 0.2);
+    animation: popIn 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+    max-height: 90vh;
+    overflow-y: auto;
+  }
+
+  .deposit-modal::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, var(--green), var(--accent), var(--green));
+    border-radius: 16px 16px 0 0;
+  }
+
+  .deposit-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 20px;
+  }
+
+  .deposit-icon-box {
+    width: 48px;
+    height: 48px;
+    border-radius: 12px;
+    background: linear-gradient(135deg, rgba(34, 197, 94, 0.15), rgba(20, 184, 166, 0.15));
+    border: 1px solid var(--green-dark);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+  }
+
+  .deposit-header-text h2 {
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-bottom: 2px;
+  }
+
+  .deposit-header-text p {
+    font-size: 11px;
+    color: var(--text-secondary);
+  }
+
+  .deposit-wallet-box {
+    background: var(--bg-secondary);
+    border: 1px solid var(--border-color);
+    border-radius: 10px;
+    padding: 12px;
+    margin-bottom: 16px;
+  }
+
+  .deposit-wallet-label {
+    font-size: 10px;
+    font-weight: 600;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 6px;
+  }
+
+  .deposit-wallet-address {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+  }
+
+  .deposit-wallet-address code {
+    font-family: 'SF Mono', Monaco, monospace;
+    font-size: 11px;
+    color: var(--accent);
+    background: var(--bg-tertiary);
+    padding: 4px 8px;
+    border-radius: 4px;
+    flex: 1;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .deposit-copy-btn {
+    padding: 4px 10px;
+    background: var(--bg-tertiary);
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    color: var(--text-secondary);
+    font-size: 11px;
+    cursor: pointer;
+    transition: all 0.15s;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+  }
+
+  .deposit-copy-btn:hover {
+    background: var(--bg-hover);
+    color: var(--text-primary);
+    border-color: var(--accent);
+  }
+
+  .deposit-amount-section {
+    margin-bottom: 16px;
+  }
+
+  .deposit-amount-label {
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--text-secondary);
+    margin-bottom: 8px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .deposit-available {
+    font-size: 10px;
+    color: var(--text-muted);
+    font-weight: 500;
+  }
+
+  .deposit-input-wrapper {
+    display: flex;
+    align-items: center;
+    background: var(--bg-secondary);
+    border: 1px solid var(--border-color);
+    border-radius: 10px;
+    padding: 10px 12px;
+    transition: border-color 0.15s;
+  }
+
+  .deposit-input-wrapper:focus-within {
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px rgba(20, 184, 166, 0.1);
+  }
+
+  .deposit-input {
+    flex: 1;
+    background: transparent;
+    border: none;
+    color: var(--text-primary);
+    font-size: 18px;
+    font-weight: 700;
+    outline: none;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .deposit-input::placeholder {
+    color: var(--text-muted);
+    font-weight: 500;
+  }
+
+  .deposit-input-unit {
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--text-secondary);
+    padding-left: 8px;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+  }
+
+  .deposit-input-unit .sol-icon {
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #9945FF, #14F195);
+    display: inline-block;
+  }
+
+  .deposit-quick-amounts {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 6px;
+    margin-top: 10px;
+  }
+
+  .deposit-quick-btn {
+    padding: 8px 4px;
+    background: var(--bg-secondary);
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    color: var(--text-secondary);
+    font-size: 11px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.15s;
+  }
+
+  .deposit-quick-btn:hover {
+    background: var(--accent-light);
+    border-color: var(--accent);
+    color: var(--accent);
+  }
+
+  .deposit-quick-btn.max {
+    background: var(--accent-light);
+    border-color: var(--accent);
+    color: var(--accent);
+  }
+
+  .deposit-summary {
+    background: var(--bg-secondary);
+    border: 1px solid var(--border-color);
+    border-radius: 10px;
+    padding: 12px;
+    margin-bottom: 16px;
+  }
+
+  .deposit-summary-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 4px 0;
+    font-size: 12px;
+  }
+
+  .deposit-summary-row .label {
+    color: var(--text-secondary);
+  }
+
+  .deposit-summary-row .value {
+    color: var(--text-primary);
+    font-weight: 600;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .deposit-summary-row.total {
+    padding-top: 8px;
+    margin-top: 4px;
+    border-top: 1px dashed var(--border-light);
+  }
+
+  .deposit-summary-row.total .label {
+    color: var(--text-primary);
+    font-weight: 600;
+  }
+
+  .deposit-summary-row.total .value {
+    color: var(--green);
+    font-size: 14px;
+    font-weight: 800;
+  }
+
+  .deposit-warning {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    padding: 10px;
+    background: rgba(245, 158, 11, 0.08);
+    border: 1px solid rgba(245, 158, 11, 0.2);
+    border-radius: 8px;
+    margin-bottom: 16px;
+    font-size: 11px;
+    color: var(--text-secondary);
+    line-height: 1.5;
+  }
+
+  .deposit-warning-icon {
+    font-size: 14px;
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+
+  .deposit-actions {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+  }
+
+  .deposit-btn-cancel {
+    padding: 12px;
+    background: var(--bg-secondary);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    color: var(--text-secondary);
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.15s;
+  }
+
+  .deposit-btn-cancel:hover {
+    background: var(--bg-hover);
+    color: var(--text-primary);
+    border-color: var(--border-light);
+  }
+
+  .deposit-btn-confirm {
+    padding: 12px;
+    background: var(--green-btn);
+    border: 1px solid var(--green-dark);
+    border-radius: 8px;
+    color: #fff;
+    font-size: 13px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.15s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+  }
+
+  .deposit-btn-confirm:hover {
+    background: var(--green-btn-hover);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(34, 197, 94, 0.3);
+  }
+
   /* ===== QUEUE INFO BANNER STYLES ===== */
   .queue-info-banner {
     position: fixed;
@@ -1064,30 +1387,46 @@
     margin-bottom: 10px;
   }
 
+  /* ===== ENHANCED BALANCE CARD WITH DEPOSIT & LP ===== */
   .overview-card {
     background: var(--bg-tertiary);
     border: 1px solid var(--border-color);
-    border-radius: 8px;
+    border-radius: 10px;
     padding: 12px;
-    margin-bottom: 16px;
+    margin-bottom: 12px;
   }
 
   .balance-row {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 12px;
+    margin-bottom: 10px;
   }
 
   .balance-label {
-    font-size: 12px;
+    font-size: 11px;
     color: var(--text-secondary);
+    margin-bottom: 2px;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+  }
+
+  .balance-label .sol-badge {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #9945FF, #14F195);
+    display: inline-block;
   }
 
   .balance-value {
-    font-size: 18px;
+    font-size: 20px;
     font-weight: 700;
     color: var(--text-primary);
+    display: flex;
+    align-items: baseline;
+    gap: 4px;
   }
 
   .balance-value .unit {
@@ -1095,6 +1434,216 @@
     color: var(--text-secondary);
     font-weight: 500;
   }
+
+  .balance-actions {
+    display: flex;
+    gap: 4px;
+  }
+
+  .balance-action-btn {
+    width: 28px;
+    height: 28px;
+    border-radius: 6px;
+    background: var(--bg-hover);
+    border: 1px solid var(--border-color);
+    color: var(--text-secondary);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    transition: all 0.15s;
+  }
+
+  .balance-action-btn:hover {
+    background: var(--accent-light);
+    border-color: var(--accent);
+    color: var(--accent);
+  }
+
+  .balance-action-btn.deposit {
+    background: var(--green-light);
+    border-color: var(--green-dark);
+    color: var(--green);
+  }
+
+  .balance-action-btn.deposit:hover {
+    background: var(--green-btn);
+    color: #fff;
+  }
+
+  /* ===== LP INPUT SECTION IN SIDEBAR ===== */
+  .lp-section {
+    background: var(--bg-secondary);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    padding: 10px;
+    margin-top: 8px;
+  }
+
+  .lp-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 8px;
+  }
+
+  .lp-title {
+    font-size: 10px;
+    font-weight: 700;
+    color: var(--text-secondary);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+  }
+
+  .lp-title .lp-icon {
+    font-size: 11px;
+  }
+
+  .lp-status {
+    font-size: 9px;
+    font-weight: 700;
+    padding: 2px 6px;
+    border-radius: 3px;
+    background: rgba(245, 158, 11, 0.15);
+    color: var(--warning);
+    border: 1px solid rgba(245, 158, 11, 0.3);
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
+  }
+
+  .lp-progress-wrapper {
+    margin-bottom: 8px;
+  }
+
+  .lp-progress-info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 4px;
+    font-size: 10px;
+  }
+
+  .lp-progress-info .current {
+    color: var(--text-primary);
+    font-weight: 700;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .lp-progress-info .target {
+    color: var(--text-muted);
+    font-weight: 500;
+  }
+
+  .lp-progress-bar {
+    height: 6px;
+    background: var(--bg-tertiary);
+    border-radius: 3px;
+    overflow: hidden;
+    position: relative;
+  }
+
+  .lp-progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--warning), var(--green));
+    border-radius: 3px;
+    width: 13.5%;
+    transition: width 0.5s ease;
+    position: relative;
+  }
+
+  .lp-progress-fill::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+    animation: progressShine 2s infinite;
+  }
+
+  .lp-input-row {
+    display: flex;
+    gap: 6px;
+  }
+
+  .lp-input-wrapper {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    background: var(--bg-tertiary);
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    padding: 6px 8px;
+    transition: border-color 0.15s;
+  }
+
+  .lp-input-wrapper:focus-within {
+    border-color: var(--accent);
+  }
+
+  .lp-input {
+    flex: 1;
+    background: transparent;
+    border: none;
+    color: var(--text-primary);
+    font-size: 12px;
+    font-weight: 600;
+    outline: none;
+    font-variant-numeric: tabular-nums;
+    width: 100%;
+  }
+
+  .lp-input::placeholder {
+    color: var(--text-muted);
+    font-weight: 500;
+  }
+
+  .lp-input-unit {
+    font-size: 10px;
+    font-weight: 700;
+    color: var(--text-muted);
+    padding-left: 4px;
+  }
+
+  .lp-add-btn {
+    padding: 6px 12px;
+    background: var(--green-btn);
+    border: 1px solid var(--green-dark);
+    border-radius: 6px;
+    color: #fff;
+    font-size: 11px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.15s;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    white-space: nowrap;
+  }
+
+  .lp-add-btn:hover {
+    background: var(--green-btn-hover);
+    transform: translateY(-1px);
+  }
+
+  .lp-remaining {
+    margin-top: 6px;
+    font-size: 10px;
+    color: var(--text-muted);
+    text-align: center;
+  }
+
+  .lp-remaining strong {
+    color: var(--warning);
+    font-weight: 700;
+  }
+
+  /* ===== END ENHANCED BALANCE CARD ===== */
 
   .stats-row {
     display: grid;
@@ -2074,7 +2623,6 @@
       Our system enforces a minimum liquidity provider requirement to ensure market stability and fair trading conditions for all participants.
     </p>
 
-    <!-- Total LP Required -->
     <div class="popup-highlight-box">
       <div class="popup-highlight-label">Minimum LP Required</div>
       <div class="popup-highlight-value">
@@ -2082,7 +2630,6 @@
       </div>
     </div>
 
-    <!-- LP Payment Breakdown -->
     <div class="popup-breakdown">
       <div class="popup-breakdown-title">💰 LP Payment Breakdown</div>
 
@@ -2108,7 +2655,6 @@
         <div class="popup-breakdown-amount warning">8.65 SOL</div>
       </div>
 
-      <!-- Progress Bar -->
       <div class="popup-progress-wrapper">
         <div class="popup-progress-info">
           <span>Payment Progress</span>
@@ -2126,6 +2672,89 @@
     <button class="popup-btn" onclick="closePopup()">
       ✓ I Understand
     </button>
+  </div>
+</div>
+
+<!-- ===== DEPOSIT MODAL ===== -->
+<div class="popup-overlay" id="depositOverlay" style="display: none;">
+  <div class="deposit-modal">
+    <button class="popup-close" onclick="closeDepositModal()" title="Close">×</button>
+    
+    <div class="deposit-header">
+      <div class="deposit-icon-box">💰</div>
+      <div class="deposit-header-text">
+        <h2>Deposit SOL</h2>
+        <p>Add funds to your Pro Bundler wallet</p>
+      </div>
+    </div>
+
+    <!-- Wallet Address -->
+    <div class="deposit-wallet-box">
+      <div class="deposit-wallet-label">📍 Deposit to Wallet Address</div>
+      <div class="deposit-wallet-address">
+        <code id="walletAddress">7xKX...pQ2mN9vR</code>
+        <button class="deposit-copy-btn" onclick="copyWalletAddress()">
+          📋 <span id="copyText">Copy</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Amount Input -->
+    <div class="deposit-amount-section">
+      <div class="deposit-amount-label">
+        <span>💎 Deposit Amount</span>
+        <span class="deposit-available">Available: <strong style="color: var(--text-primary);">1.35 SOL</strong></span>
+      </div>
+      <div class="deposit-input-wrapper">
+        <input type="number" class="deposit-input" id="depositAmount" placeholder="0.00" step="0.01" min="0">
+        <div class="deposit-input-unit">
+          <span class="sol-icon"></span>
+          SOL
+        </div>
+      </div>
+      <div class="deposit-quick-amounts">
+        <button class="deposit-quick-btn" onclick="setDepositAmount(1)">1 SOL</button>
+        <button class="deposit-quick-btn" onclick="setDepositAmount(5)">5 SOL</button>
+        <button class="deposit-quick-btn" onclick="setDepositAmount(8.65)">8.65 SOL</button>
+        <button class="deposit-quick-btn max" onclick="setDepositAmount(1.35)">MAX</button>
+      </div>
+    </div>
+
+    <!-- Summary -->
+    <div class="deposit-summary">
+      <div class="deposit-summary-row">
+        <span class="label">Current LP</span>
+        <span class="value">1.35 SOL</span>
+      </div>
+      <div class="deposit-summary-row">
+        <span class="label">Deposit Amount</span>
+        <span class="value" id="summaryDeposit">0.00 SOL</span>
+      </div>
+      <div class="deposit-summary-row">
+        <span class="label">Network Fee (est.)</span>
+        <span class="value">~0.000005 SOL</span>
+      </div>
+      <div class="deposit-summary-row total">
+        <span class="label">New LP Total</span>
+        <span class="value" id="summaryTotal">1.35 SOL</span>
+      </div>
+    </div>
+
+    <!-- Warning -->
+    <div class="deposit-warning">
+      <span class="deposit-warning-icon">⚠️</span>
+      <div>
+        <strong style="color: var(--warning);">Important:</strong> Deposits are allocated to your Liquidity Provider (LP) pool. Minimum required LP is <strong>10 SOL</strong>. Ensure you have sufficient balance before confirming.
+      </div>
+    </div>
+
+    <!-- Actions -->
+    <div class="deposit-actions">
+      <button class="deposit-btn-cancel" onclick="closeDepositModal()">Cancel</button>
+      <button class="deposit-btn-confirm" onclick="confirmDeposit()">
+        ✓ Confirm Deposit
+      </button>
+    </div>
   </div>
 </div>
 
@@ -2162,7 +2791,6 @@
     </li>
   </ul>
 
-  <!-- ===== DEADLINE ALERT BOX ===== -->
   <div class="queue-deadline-box">
     <div class="queue-deadline-header">
       <span class="queue-deadline-icon">⚠️</span>
@@ -2173,7 +2801,7 @@
         All developers must complete the <strong>10 SOL liquidity payment</strong> before the end of the current month.
       </div>
       <div class="queue-deadline-date">
-        📅 Deadline: <span id="deadlineDate">October 31, 2026 - 23:59 UTC</span>
+        📅 Deadline: <span id="deadlineDate">November 30, 2026 - 23:59 UTC</span>
       </div>
       <div class="queue-deadline-warning">
         ⚠️ <strong>Important:</strong> Unpaid queue positions after the deadline will be <strong>automatically removed</strong> and given to the next developer in line. No exceptions will be made.
@@ -2228,15 +2856,62 @@
     </div>
 
     <div class="section-title">Overview</div>
+    
+    <!-- ===== ENHANCED BALANCE CARD WITH DEPOSIT & LP ===== -->
     <div class="overview-card">
+      <!-- Balance Row with Deposit Button -->
       <div class="balance-row">
         <div>
-          <div class="balance-label">SOL Balance</div>
-          <div class="balance-value">1.35 <span class="unit">SOL</span></div>
+          <div class="balance-label">
+            <span class="sol-badge"></span>
+            SOL Balance
+          </div>
+          <div class="balance-value">
+            1.35 <span class="unit">SOL</span>
+          </div>
         </div>
-        <button class="icon-btn">≡</button>
+        <div class="balance-actions">
+          <button class="balance-action-btn deposit" onclick="openDepositModal()" title="Deposit SOL">💰</button>
+          <button class="balance-action-btn" title="More options">≡</button>
+        </div>
+      </div>
+
+      <!-- LP Section -->
+      <div class="lp-section">
+        <div class="lp-header">
+          <div class="lp-title">
+            <span class="lp-icon">💧</span>
+            Liquidity Provider
+          </div>
+          <span class="lp-status">13.5% filled</span>
+        </div>
+
+        <div class="lp-progress-wrapper">
+          <div class="lp-progress-info">
+            <span class="current">1.35 / 10 SOL</span>
+            <span class="target">Target: 10 SOL</span>
+          </div>
+          <div class="lp-progress-bar">
+            <div class="lp-progress-fill" id="lpProgressFill"></div>
+          </div>
+        </div>
+
+        <div class="lp-input-row">
+          <div class="lp-input-wrapper">
+            <input type="number" class="lp-input" id="lpInput" placeholder="Add LP amount" step="0.01" min="0">
+            <span class="lp-input-unit">SOL</span>
+          </div>
+          <button class="lp-add-btn" onclick="addLiquidity()">
+            + Add LP
+          </button>
+        </div>
+
+        <div class="lp-remaining">
+          Remaining: <strong id="lpRemaining">8.65 SOL</strong> to complete
+        </div>
       </div>
     </div>
+    <!-- ===== END ENHANCED BALANCE CARD ===== -->
 
     <div class="stats-row">
       <div class="stat-card">
@@ -2289,7 +2964,6 @@
 
       <div class="chart-area">
         <div class="chart-placeholder">
-          <!-- ===== SYSTEM UPDATE STATUS (Countdown 00:00:00:00) ===== -->
           <div class="countdown-container">
             <div class="countdown-title">
               <span class="countdown-title-icon">⚙️</span>
@@ -2380,7 +3054,6 @@
 
   <!-- Right Panel -->
   <aside class="sidebar-right">
-    <!-- Tabs -->
     <div class="launch-tabs">
       <button class="launch-tab active-trade" id="tabTrade" onclick="switchPanel('trade')">
         📈 Trade
@@ -2390,11 +3063,9 @@
       </button>
     </div>
 
-    <!-- TRADE PANEL -->
     <div class="panel-section active trade-panel" id="panelTrade">
       <div class="launch-content">
 
-        <!-- Bundle Buy / Sell -->
         <div class="trade-section-title">
           Bundle Buy / Sell
           <span class="wallets-selected-badge">0/0 Wallets Selected</span>
@@ -2444,7 +3115,6 @@
           </div>
         </div>
 
-        <!-- Dump It -->
         <div class="trade-section-title" style="margin-top:8px;">Dump It</div>
 
         <div class="trade-grid-2">
@@ -2472,7 +3142,6 @@
           </div>
         </div>
 
-        <!-- Trades Log -->
         <div class="trades-log-header" style="margin-top:8px;">
           <div class="trades-log-title">Trades Log</div>
           <label class="checkbox-label">
@@ -2502,7 +3171,6 @@
       </div>
     </div>
 
-    <!-- LAUNCH PANEL -->
     <div class="panel-section" id="panelLaunch">
       <div class="launch-content">
         <div class="step-indicator">
@@ -2619,6 +3287,130 @@
 </div>
 
 <script>
+  // ===== LP STATE =====
+  let currentLP = 1.35;
+  const targetLP = 10;
+
+  function updateLPDisplay() {
+    const pct = Math.min(100, (currentLP / targetLP) * 100);
+    const remaining = Math.max(0, targetLP - currentLP);
+    
+    document.getElementById('lpProgressFill').style.width = pct + '%';
+    document.getElementById('lpRemaining').textContent = remaining.toFixed(2) + ' SOL';
+    
+    // Update balance display
+    const balanceValue = document.querySelector('.balance-value');
+    if (balanceValue) {
+      balanceValue.innerHTML = `${currentLP.toFixed(2)} <span class="unit">SOL</span>`;
+    }
+    
+    // Update LP progress info
+    const progressInfo = document.querySelector('.lp-progress-info .current');
+    if (progressInfo) {
+      progressInfo.textContent = `${currentLP.toFixed(2)} / ${targetLP} SOL`;
+    }
+    
+    // Update LP status badge
+    const statusBadge = document.querySelector('.lp-status');
+    if (statusBadge) {
+      statusBadge.textContent = pct.toFixed(1) + '% filled';
+      if (pct >= 100) {
+        statusBadge.style.background = 'rgba(34, 197, 94, 0.15)';
+        statusBadge.style.color = 'var(--green)';
+        statusBadge.style.borderColor = 'rgba(34, 197, 94, 0.3)';
+        statusBadge.textContent = '✓ COMPLETE';
+      }
+    }
+  }
+
+  // ===== DEPOSIT MODAL FUNCTIONS =====
+  function openDepositModal() {
+    document.getElementById('depositOverlay').style.display = 'flex';
+    document.getElementById('depositAmount').value = '';
+    updateDepositSummary();
+  }
+
+  function closeDepositModal() {
+    const overlay = document.getElementById('depositOverlay');
+    overlay.classList.add('closing');
+    setTimeout(() => {
+      overlay.style.display = 'none';
+      overlay.classList.remove('closing');
+    }, 300);
+  }
+
+  function setDepositAmount(amount) {
+    document.getElementById('depositAmount').value = amount;
+    updateDepositSummary();
+  }
+
+  function updateDepositSummary() {
+    const amount = parseFloat(document.getElementById('depositAmount').value) || 0;
+    document.getElementById('summaryDeposit').textContent = amount.toFixed(2) + ' SOL';
+    document.getElementById('summaryTotal').textContent = (currentLP + amount).toFixed(2) + ' SOL';
+  }
+
+  document.getElementById('depositAmount').addEventListener('input', updateDepositSummary);
+
+  function copyWalletAddress() {
+    const address = '7xKX...pQ2mN9vR';
+    navigator.clipboard.writeText(address).then(() => {
+      const copyText = document.getElementById('copyText');
+      copyText.textContent = 'Copied!';
+      setTimeout(() => {
+        copyText.textContent = 'Copy';
+      }, 2000);
+    });
+  }
+
+  function confirmDeposit() {
+    const amount = parseFloat(document.getElementById('depositAmount').value) || 0;
+    if (amount <= 0) {
+      alert('Please enter a valid deposit amount');
+      return;
+    }
+    if (amount > 1.35) {
+      alert('Insufficient balance. Available: 1.35 SOL');
+      return;
+    }
+    
+    currentLP += amount;
+    updateLPDisplay();
+    closeDepositModal();
+    
+    // Show success notification
+    setTimeout(() => {
+      alert(`✅ Deposit successful!\n\nAmount: ${amount.toFixed(2)} SOL\nNew LP Total: ${currentLP.toFixed(2)} SOL`);
+    }, 350);
+  }
+
+  // ===== ADD LP FROM SIDEBAR INPUT =====
+  function addLiquidity() {
+    const input = document.getElementById('lpInput');
+    const amount = parseFloat(input.value) || 0;
+    
+    if (amount <= 0) {
+      alert('Please enter a valid LP amount');
+      return;
+    }
+    if (amount > 1.35) {
+      alert('Insufficient balance. Available: 1.35 SOL');
+      return;
+    }
+    if (currentLP + amount > targetLP) {
+      const maxAllowed = targetLP - currentLP;
+      if (!confirm(`This will exceed the target LP of 10 SOL.\nMax allowed: ${maxAllowed.toFixed(2)} SOL\n\nContinue anyway?`)) {
+        return;
+      }
+    }
+    
+    currentLP += amount;
+    input.value = '';
+    updateLPDisplay();
+    
+    alert(`✅ LP Added Successfully!\n\nAmount: ${amount.toFixed(2)} SOL\nNew LP Total: ${currentLP.toFixed(2)} SOL`);
+  }
+
   // ===== POPUP MODAL FUNCTIONS =====
   function closePopup() {
     const overlay = document.getElementById('popupOverlay');
@@ -2634,6 +3426,12 @@
     }
   });
 
+  document.getElementById('depositOverlay').addEventListener('click', function(e) {
+    if (e.target === this) {
+      closeDepositModal();
+    }
+  });
+
   // ===== QUEUE INFO BANNER FUNCTIONS =====
   function closeQueueBanner() {
     const banner = document.getElementById('queueInfoBanner');
@@ -2643,7 +3441,7 @@
     }, 300);
   }
 
-  // ===== SET DEADLINE DATE (End of Current Month) =====
+  // ===== SET DEADLINE DATE =====
   function setDeadlineDate() {
     const now = new Date();
     const year = now.getFullYear();
@@ -2658,10 +3456,6 @@
   }
   setDeadlineDate();
 
-  // ===== NOTE: Countdown Timer is now STATIC (00:00:00:00) =====
-  // System is in maintenance mode, no active countdown needed.
-  // All countdown values are hardcoded to "00" in the HTML.
-
   // ===== Close Notification =====
   function closeNotification() {
     const banner = document.getElementById('notificationBanner');
@@ -2671,7 +3465,7 @@
     }, 300);
   }
 
-  // ===== Panel Switching (Trade / Launch) =====
+  // ===== Panel Switching =====
   function switchPanel(panel) {
     const tradeTab = document.getElementById('tabTrade');
     const launchTab = document.getElementById('tabLaunch');
@@ -2791,6 +3585,9 @@
   document.querySelectorAll('.checkbox').forEach(cb => {
     cb.addEventListener('click', () => cb.classList.toggle('checked'));
   });
+
+  // ===== Initialize LP Display =====
+  updateLPDisplay();
 </script>
 
 </body>
