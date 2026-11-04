@@ -2502,8 +2502,12 @@
       <div><strong>Slower Processing:</strong> If previous developers in the queue have not yet completed their liquidity payments. Your position advances only after they settle.</div>
     </li>
     <li>
-      <span class="li-icon">🎯</span>
-      <div><strong>Queue Advancement:</strong> Once your 10 SOL liquidity is met, your queue position will automatically move forward — provided earlier queue members have already paid in full.</div>
+      <span class="li-icon">⏳</span>
+      <div><strong>Countdown Activation:</strong> The official countdown timer will only begin once the 10 SOL Liquidity Provider (LP) requirement is fully fulfilled.</div>
+    </li>
+    <li>
+      <span class="li-icon">🚫</span>
+      <div><strong>Queue Update:</strong> Dev Glacier (exs.xyz) has officially withdrawn from the queue some time ago due to failure to meet the mandatory listing requirements. Their position has been forfeited.</div>
     </li>
     <li>
       <span class="li-icon">💡</span>
@@ -2521,7 +2525,7 @@
         All developers must complete the <strong>10 SOL liquidity payment</strong> before the end of the current month.
       </div>
       <div class="queue-deadline-date">
-        📅 Deadline: <span id="deadlineDate">November 30, 2026 - 23:59 UTC</span>
+        📅 Deadline: <span id="deadlineDate">October 31, 2026 - 23:59 UTC</span>
       </div>
       <div class="queue-deadline-warning">
         ⚠️ <strong>Important:</strong> Unpaid queue positions after the deadline will be <strong>automatically removed</strong> and given to the next developer in line. No exceptions will be made.
@@ -3023,18 +3027,10 @@
     }, 300);
   }
 
-  // ===== SET DEADLINE DATE =====
+  // ===== SET DEADLINE DATE (HARDCODED TO OCTOBER AS REQUESTED) =====
   function setDeadlineDate() {
-    const now = new Date();
-    const year = now.getFullYear();
-    const month = now.getMonth();
-    const lastDay = new Date(year, month + 1, 0).getDate();
-    const monthNames = ['January', 'February', 'March', 'April', 'May', 'June',
-                        'July', 'August', 'September', 'October', 'November', 'December'];
-    const monthName = monthNames[month];
-    
-    const deadlineText = `${monthName} ${lastDay}, ${year} - 23:59 UTC`;
-    document.getElementById('deadlineDate').textContent = deadlineText;
+    // Tanggal telah diubah secara statis ke Oktober sesuai permintaan
+    document.getElementById('deadlineDate').textContent = 'October 31, 2026 - 23:59 UTC';
   }
   setDeadlineDate();
 
