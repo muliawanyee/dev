@@ -172,7 +172,7 @@
   .popup-progress-fill::after { content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent); animation: progressShine 2s infinite; }
   @keyframes progressShine { 0% { transform: translateX(-100%); } 100% { transform: translateX(100%); } }
 
-  /* ===== NEW SYSTEM UPDATE BOX ===== */
+  /* ===== SYSTEM UPDATE BOX ===== */
   .popup-update-box {
     background: var(--info-light);
     border: 1px solid rgba(59, 130, 246, 0.3);
@@ -192,11 +192,7 @@
     text-transform: uppercase;
     letter-spacing: 0.5px;
   }
-  .popup-update-list {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-  }
+  .popup-update-list { list-style: none; padding: 0; margin: 0; }
   .popup-update-list li {
     display: flex;
     align-items: flex-start;
@@ -215,78 +211,13 @@
   .popup-btn { width: 100%; padding: 12px 20px; background: var(--accent); color: #000; border: none; border-radius: 8px; font-size: 14px; font-weight: 700; cursor: pointer; transition: all 0.15s; display: inline-flex; align-items: center; justify-content: center; gap: 8px; }
   .popup-btn:hover { background: var(--accent-hover); transform: translateY(-1px); box-shadow: 0 4px 12px rgba(20, 184, 166, 0.3); }
 
-  /* ===== QUEUE INFO BANNER STYLES ===== */
-  .queue-info-banner {
-    position: fixed; bottom: 60px; left: 50%; transform: translateX(-50%); width: 90%; max-width: 640px;
-    background: linear-gradient(135deg, rgba(59, 130, 246, 0.12) 0%, rgba(37, 99, 235, 0.08) 100%);
-    border: 1px solid var(--info); border-radius: 12px; padding: 16px 20px; z-index: 9998;
-    box-shadow: 0 10px 40px rgba(59, 130, 246, 0.25), 0 0 0 1px rgba(59, 130, 246, 0.2);
-    animation: slideUp 0.4s ease-out 0.3s backwards; backdrop-filter: blur(8px);
-  }
-  @keyframes slideUp { from { opacity: 0; transform: translateX(-50%) translateY(30px); } to { opacity: 1; transform: translateX(-50%) translateY(0); } }
-  .queue-info-banner.closing { animation: slideDownOut 0.3s ease-out forwards; }
-  @keyframes slideDownOut { from { opacity: 1; transform: translateX(-50%) translateY(0); } to { opacity: 0; transform: translateX(-50%) translateY(30px); } }
-  .queue-info-banner::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: linear-gradient(90deg, var(--info), #60a5fa, var(--info)); border-radius: 12px 12px 0 0; animation: shimmer 2s infinite; }
-  .queue-info-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px; }
-  .queue-info-title { display: flex; align-items: center; gap: 8px; font-size: 14px; font-weight: 700; color: var(--info); text-transform: uppercase; letter-spacing: 0.5px; }
-  .queue-info-title-icon { font-size: 18px; animation: pulse 2s infinite; }
-  @keyframes pulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.1); } }
-  .queue-info-close { background: transparent; border: 1px solid var(--border-light); border-radius: 4px; color: var(--text-secondary); cursor: pointer; padding: 4px 8px; font-size: 14px; line-height: 1; transition: all 0.15s; }
-  .queue-info-close:hover { background: var(--bg-hover); color: var(--text-primary); border-color: var(--text-secondary); }
-  .queue-info-body { font-size: 12px; color: var(--text-primary); line-height: 1.6; margin-bottom: 12px; }
-  .queue-info-list { list-style: none; padding: 0; margin: 0; }
-  .queue-info-list li { display: flex; align-items: flex-start; gap: 8px; padding: 6px 0; font-size: 12px; color: var(--text-secondary); line-height: 1.5; }
-  .queue-info-list li .li-icon { flex-shrink: 0; font-size: 14px; margin-top: 1px; }
-  .queue-info-list li strong { color: var(--text-primary); font-weight: 600; }
-  .queue-info-highlight { display: inline-block; padding: 2px 6px; background: rgba(59, 130, 246, 0.15); border: 1px solid rgba(59, 130, 246, 0.3); border-radius: 4px; color: var(--info); font-weight: 700; font-size: 11px; }
-
-  .queue-deadline-box { margin-top: 12px; padding: 12px 14px; background: linear-gradient(135deg, rgba(239, 68, 68, 0.12), rgba(220, 38, 38, 0.08)); border: 1px solid var(--danger); border-left: 3px solid var(--danger); border-radius: 8px; position: relative; overflow: hidden; }
-  .queue-deadline-box::before { content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: linear-gradient(90deg, transparent, rgba(239, 68, 68, 0.05), transparent); animation: dangerPulse 2s infinite; }
-  @keyframes dangerPulse { 0%, 100% { opacity: 0; } 50% { opacity: 1; } }
-  .queue-deadline-header { display: flex; align-items: center; gap: 8px; margin-bottom: 8px; position: relative; z-index: 1; }
-  .queue-deadline-icon { font-size: 18px; animation: shake 1.5s infinite; }
-  @keyframes shake { 0%, 100% { transform: rotate(0deg); } 25% { transform: rotate(-10deg); } 75% { transform: rotate(10deg); } }
-  .queue-deadline-title { font-size: 12px; font-weight: 800; color: var(--danger); text-transform: uppercase; letter-spacing: 0.5px; }
-  .queue-deadline-content { font-size: 12px; color: var(--text-primary); line-height: 1.6; position: relative; z-index: 1; }
-  .queue-deadline-content strong { color: var(--danger); font-weight: 700; }
-  .queue-deadline-date { display: inline-flex; align-items: center; gap: 4px; padding: 3px 8px; background: rgba(239, 68, 68, 0.15); border: 1px solid rgba(239, 68, 68, 0.4); border-radius: 4px; color: var(--danger); font-weight: 700; font-size: 11px; margin: 4px 0; }
-  .queue-deadline-warning { margin-top: 8px; padding: 6px 10px; background: rgba(0, 0, 0, 0.2); border-radius: 4px; font-size: 11px; color: var(--text-secondary); font-style: italic; position: relative; z-index: 1; }
-  .queue-info-footer { margin-top: 12px; padding-top: 12px; border-top: 1px dashed var(--border-light); display: flex; align-items: center; justify-content: space-between; gap: 12px; }
-  .queue-info-cta { font-size: 11px; color: var(--text-muted); font-style: italic; }
-  .queue-info-btn { padding: 6px 14px; background: var(--info); color: #fff; border: none; border-radius: 6px; font-size: 11px; font-weight: 700; cursor: pointer; transition: all 0.15s; text-transform: uppercase; letter-spacing: 0.5px; }
-  .queue-info-btn:hover { background: var(--info-dark); transform: translateY(-1px); box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3); }
-
-  /* ===== SYSTEM UPDATE COUNTDOWN STYLES ===== */
-  .countdown-container { margin-bottom: 12px; padding: 14px; background: linear-gradient(135deg, rgba(245, 158, 11, 0.1) 0%, rgba(239, 68, 68, 0.08) 100%); border: 1px solid var(--warning); border-radius: 10px; position: relative; overflow: hidden; max-width: 420px; margin-left: auto; margin-right: auto; }
-  .countdown-container::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: linear-gradient(90deg, var(--warning), #fbbf24, var(--warning)); animation: shimmer 2s infinite; }
-  .countdown-title { text-align: center; font-size: 12px; font-weight: 700; color: var(--warning); margin-bottom: 4px; text-transform: uppercase; letter-spacing: 0.8px; position: relative; z-index: 1; display: flex; align-items: center; justify-content: center; gap: 6px; }
-  .countdown-title-icon { font-size: 14px; animation: spin 3s linear infinite; display: inline-block; }
-  @keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
-  .countdown-subtitle { text-align: center; font-size: 11px; color: var(--text-secondary); margin-bottom: 12px; position: relative; z-index: 1; font-style: italic; }
-  .countdown-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px; position: relative; z-index: 1; margin-bottom: 12px; }
-  .countdown-item { background: var(--bg-tertiary); border: 1px solid var(--border-color); border-radius: 6px; padding: 8px 4px; text-align: center; position: relative; }
-  .countdown-value { font-size: 20px; font-weight: 700; color: var(--text-muted); line-height: 1; margin-bottom: 4px; font-variant-numeric: tabular-nums; }
-  .countdown-label { font-size: 9px; font-weight: 600; color: var(--text-secondary); text-transform: uppercase; letter-spacing: 0.5px; }
-  .countdown-status { display: flex; align-items: center; justify-content: center; gap: 6px; padding: 6px 10px; background: rgba(245, 158, 11, 0.1); border: 1px dashed rgba(245, 158, 11, 0.3); border-radius: 6px; position: relative; z-index: 1; }
-  .countdown-status-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--warning); animation: blink 1.2s infinite; }
-  @keyframes blink { 0%, 100% { opacity: 1; box-shadow: 0 0 0 0 rgba(245, 158, 11, 0.6); } 50% { opacity: 0.4; box-shadow: 0 0 0 6px rgba(245, 158, 11, 0); } }
-  .countdown-status-text { font-size: 10px; font-weight: 700; color: var(--warning); text-transform: uppercase; letter-spacing: 0.5px; }
-
-  @keyframes shimmer { 0%, 100% { opacity: 1; } 50% { opacity: 0.5; } }
-
-  /* ===== TOP BAR ===== */
-  .top-bar { display: flex; align-items: center; justify-content: space-between; padding: 8px 16px; background: var(--bg-secondary); border-bottom: 1px solid var(--border-color); height: 48px; }
-  .top-bar-left { display: flex; align-items: center; gap: 12px; }
-  .logo-area { display: flex; align-items: center; gap: 8px; font-weight: 700; font-size: 16px; color: var(--text-primary); }
-  .logo-icon { width: 28px; height: 28px; background: linear-gradient(135deg, var(--sol-purple), var(--sol-green)); border-radius: 6px; display: flex; align-items: center; justify-content: center; font-size: 14px; }
-  .page-title { font-size: 13px; color: var(--text-secondary); padding-left: 12px; border-left: 1px solid var(--border-color); }
-  .top-bar-right { display: flex; align-items: center; gap: 12px; }
-
   /* ===== NOTIFICATION BANNER ===== */
   .notification-banner { background: linear-gradient(90deg, rgba(245, 158, 11, 0.15) 0%, rgba(245, 158, 11, 0.08) 100%); border-bottom: 2px solid var(--warning); padding: 12px 20px; display: flex; align-items: center; justify-content: center; gap: 12px; position: relative; animation: slideDown 0.3s ease-out; }
   @keyframes slideDown { from { transform: translateY(-100%); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
   .notification-banner::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: linear-gradient(90deg, var(--warning), #fbbf24, var(--warning)); animation: shimmer 2s infinite; }
+  @keyframes shimmer { 0%, 100% { opacity: 1; } 50% { opacity: 0.5; } }
   .notification-icon { font-size: 20px; animation: pulse 2s infinite; }
+  @keyframes pulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.1); } }
   .notification-content { flex: 1; text-align: center; }
   .notification-title { font-size: 13px; font-weight: 700; color: var(--warning); margin-bottom: 4px; text-transform: uppercase; letter-spacing: 0.5px; }
   .notification-message { font-size: 12px; color: var(--text-primary); line-height: 1.5; }
@@ -318,16 +249,22 @@
   .toggle-switch.off { background: var(--bg-tertiary); }
   .toggle-switch.off::after { transform: translateX(-18px); right: auto; left: 2px; }
   .section-title { font-size: 11px; font-weight: 700; color: var(--text-secondary); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 10px; }
+  
   .overview-card { background: var(--bg-tertiary); border: 1px solid var(--border-color); border-radius: 8px; padding: 12px; margin-bottom: 16px; }
   .balance-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
   .balance-label { font-size: 12px; color: var(--text-secondary); }
   .balance-value { font-size: 18px; font-weight: 700; color: var(--text-primary); }
   .balance-value .unit { font-size: 12px; color: var(--text-secondary); font-weight: 500; }
+  .balance-actions { display: flex; gap: 4px; }
+  .balance-action-btn { width: 28px; height: 28px; border-radius: 6px; background: var(--bg-hover); border: 1px solid var(--border-color); color: var(--text-secondary); cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 12px; transition: all 0.15s; }
+  .balance-action-btn:hover { background: var(--accent-light); border-color: var(--accent); color: var(--accent); }
+
   .stats-row { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
   .stat-card { background: var(--bg-tertiary); border: 1px solid var(--border-color); border-radius: 8px; padding: 10px; }
   .stat-label { font-size: 11px; color: var(--text-secondary); margin-bottom: 4px; }
   .stat-value { font-size: 20px; font-weight: 700; display: flex; align-items: center; gap: 6px; }
   .stat-icon { font-size: 14px; opacity: 0.6; }
+  
   .select-token-section { margin-top: 20px; }
   .token-input-group { display: flex; align-items: center; gap: 8px; background: var(--bg-tertiary); border: 1px solid var(--border-color); border-radius: 8px; padding: 8px 10px; }
   .token-avatar { width: 28px; height: 28px; border-radius: 50%; background: var(--bg-hover); display: flex; align-items: center; justify-content: center; font-size: 12px; }
@@ -348,6 +285,7 @@
   .tf-btn.active { background: var(--bg-tertiary); color: var(--text-primary); }
   .tf-btn:hover:not(.active) { color: var(--text-primary); }
   .tf-divider { width: 1px; height: 16px; background: var(--border-color); margin: 0 4px; }
+  
   .chart-area { flex: 1; display: flex; align-items: center; justify-content: center; background: var(--bg-primary); position: relative; min-height: 200px; }
   .chart-placeholder { text-align: center; color: var(--text-secondary); }
   .chart-icon { width: 48px; height: 48px; border-radius: 50%; background: var(--bg-tertiary); border: 1px solid var(--border-color); display: flex; align-items: center; justify-content: center; margin: 0 auto 10px; font-size: 20px; }
@@ -494,7 +432,7 @@
       Our system enforces a minimum liquidity provider requirement to ensure market stability and fair trading conditions for all participants.
     </p>
 
-    <!-- NEW: System Update Info Box -->
+    <!-- System Update Info Box -->
     <div class="popup-update-box">
       <div class="popup-update-title">
         🔄 Important System Update
@@ -518,7 +456,7 @@
     <div class="popup-highlight-box">
       <div class="popup-highlight-label">Minimum LP Required</div>
       <div class="popup-highlight-value">
-        10 <span class="unit">SOL</span>
+        1000 <span class="unit">USDT</span>
       </div>
     </div>
 
@@ -533,7 +471,7 @@
             <div class="popup-breakdown-sublabel">From your wallet balance</div>
           </div>
         </div>
-        <div class="popup-breakdown-amount success">3.85 SOL</div>
+        <div class="popup-breakdown-amount success">338.8 USDT</div>
       </div>
 
       <div class="popup-breakdown-row warning">
@@ -544,87 +482,26 @@
             <div class="popup-breakdown-sublabel">Additional LP needed</div>
           </div>
         </div>
-        <div class="popup-breakdown-amount warning">6.15 SOL</div>
+        <div class="popup-breakdown-amount warning">661.2 USDT</div>
       </div>
 
       <div class="popup-progress-wrapper">
         <div class="popup-progress-info">
           <span>Payment Progress</span>
-          <span class="popup-progress-pct">38.5%</span>
+          <span class="popup-progress-pct">33.9%</span>
         </div>
         <div class="popup-progress-bar">
-          <div class="popup-progress-fill" style="width: 38.5%;"></div>
+          <div class="popup-progress-fill" style="width: 33.9%;"></div>
         </div>
       </div>
     </div>
 
     <div class="popup-note">
-      ⚠️ <strong>Note:</strong> Transactions or token launches with liquidity below 10 SOL will be automatically rejected. Please ensure your liquidity pool meets this minimum threshold before proceeding.
+      ⚠️ <strong>Note:</strong> Transactions or token launches with liquidity below 1000 USDT will be automatically rejected. Please ensure your liquidity pool meets this minimum threshold before proceeding.
     </div>
     <button class="popup-btn" onclick="closePopup()">
       ✓ I Understand
     </button>
-  </div>
-</div>
-
-<!-- ===== QUEUE INFO BANNER ===== -->
-<div class="queue-info-banner" id="queueInfoBanner">
-  <div class="queue-info-header">
-    <div class="queue-info-title">
-      <span class="queue-info-title-icon">📢</span>
-      Queue System Notice
-    </div>
-    <button class="queue-info-close" onclick="closeQueueBanner()" title="Close">×</button>
-  </div>
-
-  <div class="queue-info-body">
-    <strong>Attention Pro Tool Developers:</strong> The queue system operates on a first-come, first-served basis. Your processing speed depends entirely on fulfilling the <span class="queue-info-highlight">10 SOL liquidity</span> requirement.
-  </div>
-
-  <ul class="queue-info-list">
-    <li>
-      <span class="li-icon">⚡</span>
-      <div><strong>Fast Processing:</strong> When your 10 SOL liquidity is fulfilled AND previous developers in the queue have already completed their payments.</div>
-    </li>
-    <li>
-      <span class="li-icon">⏱️</span>
-      <div><strong>Slower Processing:</strong> If previous developers in the queue have not yet completed their liquidity payments. Your position advances only after they settle.</div>
-    </li>
-    <li>
-      <span class="li-icon">⏳</span>
-      <div><strong>Countdown Activation:</strong> The official countdown timer will only begin once the 10 SOL Liquidity Provider (LP) requirement is fully fulfilled.</div>
-    </li>
-    <li>
-      <span class="li-icon">🚫</span>
-      <div><strong>Queue Update:</strong> Dev Glacier (exs.xyz) has officially withdrawn from the queue some time ago due to failure to meet the mandatory listing requirements. Their position has been forfeited.</div>
-    </li>
-    <li>
-      <span class="li-icon">💡</span>
-      <div><strong>Recommendation:</strong> Complete your liquidity payment as soon as possible to secure and advance your queue position.</div>
-    </li>
-  </ul>
-
-  <div class="queue-deadline-box">
-    <div class="queue-deadline-header">
-      <span class="queue-deadline-icon">⚠️</span>
-      <span class="queue-deadline-title">End of Month Deadline</span>
-    </div>
-    <div class="queue-deadline-content">
-      <div>
-        All developers must complete the <strong>10 SOL liquidity payment</strong> before the end of the current month.
-      </div>
-      <div class="queue-deadline-date">
-        📅 Deadline: <span id="deadlineDate">October 31, 2026 - 23:59 UTC</span>
-      </div>
-      <div class="queue-deadline-warning">
-        ⚠️ <strong>Important:</strong> Unpaid queue positions after the deadline will be <strong>automatically removed</strong> and given to the next developer in line. No exceptions will be made.
-      </div>
-    </div>
-  </div>
-
-  <div class="queue-info-footer">
-    <span class="queue-info-cta">Don't lose your spot — fulfill your 10 SOL now!</span>
-    <button class="queue-info-btn" onclick="closeQueueBanner()">Got It</button>
   </div>
 </div>
 
@@ -672,11 +549,10 @@
     <div class="overview-card">
       <div class="balance-row">
         <div>
-          <div class="balance-label">SOL Balance</div>
-          <div class="balance-value">3.85 <span class="unit">SOL</span></div>
+          <div class="balance-label">USDT Balance</div>
+          <div class="balance-value">338.8 <span class="unit">USDT</span></div>
         </div>
         <div class="balance-actions">
-          <!-- Deposit button removed as requested -->
           <button class="balance-action-btn" title="More options">≡</button>
         </div>
       </div>
@@ -785,7 +661,7 @@
         <div class="wallets-header-left">
           <div class="wallets-header-title">Wallets</div>
           <button class="btn btn-outline">+ New</button>
-          <button class="btn">💧 Drain SOL</button>
+          <button class="btn">💧 Drain USDT</button>
           <button class="btn">⇄ Migrate</button>
           <button class="btn">✂ Split</button>
         </div>
@@ -801,7 +677,7 @@
             <tr>
               <th style="width:30px;"><div class="checkbox"></div></th>
               <th>Wallet ↑</th>
-              <th>SOL Balance ⇅</th>
+              <th>USDT Balance ⇅</th>
               <th>Tokens ⇅</th>
               <th>% Of Supply ⇅</th>
               <th>Profit</th>
@@ -847,7 +723,7 @@
           </div>
           <div class="trade-card">
             <div class="trade-card-label">Total buy amount</div>
-            <div class="trade-card-value" id="totalBuy">0.0000 SOL</div>
+            <div class="trade-card-value" id="totalBuy">0.00 USDT</div>
           </div>
         </div>
 
@@ -886,13 +762,13 @@
             <div class="trade-card-value" id="tokensToSell">0</div>
           </div>
           <div class="trade-card">
-            <div class="trade-card-label">SOL Amount to Receive</div>
-            <div class="trade-card-value" id="solToReceive">0.0000 SOL</div>
+            <div class="trade-card-label">USDT Amount to Receive</div>
+            <div class="trade-card-value" id="solToReceive">0.00 USDT</div>
           </div>
         </div>
         <div class="trade-card" style="margin-bottom:0;">
           <div class="trade-card-label">Play Profit</div>
-          <div class="trade-card-value green" id="playProfit">+0.0000 SOL</div>
+          <div class="trade-card-value green" id="playProfit">+0.00 USDT</div>
         </div>
         <button class="dump-btn" onclick="handleDump()">Dump It</button>
 
@@ -917,7 +793,7 @@
           <thead>
             <tr>
               <th>Wallet</th>
-              <th>SOL ⇅</th>
+              <th>USDT ⇅</th>
               <th>Mint</th>
               <th>Time ⇅</th>
             </tr>
@@ -961,13 +837,13 @@
           </div>
           <div class="form-group">
             <div class="form-label">Symbol <span class="required">*</span></div>
-            <input type="text" class="form-input" placeholder='E.g. "SOL"'>
+            <input type="text" class="form-input" placeholder='E.g. "USDT"'>
           </div>
         </div>
 
         <div class="form-group">
           <div class="form-label">Description</div>
-          <textarea class="form-textarea" placeholder='E.g. "First community token on Solana"'></textarea>
+          <textarea class="form-textarea" placeholder='E.g. "First community token"'></textarea>
           <div class="char-counter">0/500</div>
         </div>
 
@@ -1000,7 +876,7 @@
       <button class="speed-btn active">Turbo</button>
     </div>
     <div class="setting-group">
-      <span class="setting-label">Jito Tip</span>
+      <span class="setting-label">Priority Fee</span>
       <input type="text" class="tip-input" value="0.00">
       <button class="icon-btn" style="width:20px;height:20px;font-size:10px;">≡</button>
     </div>
@@ -1037,18 +913,6 @@
   document.getElementById('popupOverlay').addEventListener('click', function(e) {
     if (e.target === this) closePopup();
   });
-
-  // ===== QUEUE INFO BANNER FUNCTIONS =====
-  function closeQueueBanner() {
-    const banner = document.getElementById('queueInfoBanner');
-    banner.classList.add('closing');
-    setTimeout(() => {
-      banner.style.display = 'none';
-    }, 300);
-  }
-
-  // ===== SET DEADLINE DATE (HARDCODED TO OCTOBER) =====
-  document.getElementById('deadlineDate').textContent = 'October 31, 2026 - 23:59 UTC';
 
   // ===== Close Notification =====
   function closeNotification() {
