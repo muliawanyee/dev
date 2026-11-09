@@ -450,6 +450,12 @@
             <strong>Increased Queue Capacity:</strong> To serve our community better and accelerate processing, we have expanded the daily queue limit from <strong>5 devs/day</strong> to <strong>11 devs/day</strong>.
           </div>
         </li>
+        <li>
+          <span class="update-icon">🚫</span>
+          <div>
+            <strong>Dev Glacier Withdrawal:</strong> Dev Glacier (exs.xyz) has officially withdrawn from the scheduled listing queue. Their queue slot will be reassigned to the next developer once <strong>all mandatory requirements are fully met</strong>.
+          </div>
+        </li>
       </ul>
     </div>
 
@@ -901,29 +907,22 @@
 </div>
 
 <script>
-  // ===== POPUP MODAL FUNCTIONS =====
   function closePopup() {
     const overlay = document.getElementById('popupOverlay');
     overlay.classList.add('closing');
-    setTimeout(() => {
-      overlay.style.display = 'none';
-    }, 300);
+    setTimeout(() => { overlay.style.display = 'none'; }, 300);
   }
 
   document.getElementById('popupOverlay').addEventListener('click', function(e) {
     if (e.target === this) closePopup();
   });
 
-  // ===== Close Notification =====
   function closeNotification() {
     const banner = document.getElementById('notificationBanner');
     banner.style.animation = 'slideDown 0.3s ease-out reverse';
-    setTimeout(() => {
-      banner.style.display = 'none';
-    }, 300);
+    setTimeout(() => { banner.style.display = 'none'; }, 300);
   }
 
-  // ===== Panel Switching =====
   function switchPanel(panel) {
     const tradeTab = document.getElementById('tabTrade');
     const launchTab = document.getElementById('tabLaunch');
@@ -945,7 +944,6 @@
     }
   }
 
-  // ===== Buy / Sell Toggle =====
   function switchBuySell(mode) {
     const btnBuy = document.getElementById('btnBuy');
     const btnSell = document.getElementById('btnSell');
@@ -960,7 +958,6 @@
     }
   }
 
-  // ===== TX Delay =====
   let txDelay = 0;
   function adjustDelay(delta) {
     txDelay = Math.max(0, txDelay + delta);
@@ -971,17 +968,11 @@
     document.getElementById('progressFill').style.width = `${Math.min(txDelay * 10, 100)}%`;
   }
 
-  // ===== Log Tab =====
   function switchLogTab(tab) {
     const main = document.getElementById('logMain');
     const mm = document.getElementById('logMM');
-    if (tab === 'main') {
-      main.classList.add('active');
-      mm.classList.remove('active');
-    } else {
-      mm.classList.add('active');
-      main.classList.remove('active');
-    }
+    if (tab === 'main') { main.classList.add('active'); mm.classList.remove('active'); }
+    else { mm.classList.add('active'); main.classList.remove('active'); }
   }
 
   function handleDump() { alert('Dump It action triggered!'); }
